@@ -1,5 +1,5 @@
 // js/product-category.js
-import { api } from "./api.js";
+import { api, SERVER_BASE } from "./api.js";
 import { addToCart } from "./cart.js";
 import { getWishlistIds, toggleWishlist, syncWishlistFromServer } from "./wishlist.js";
 import { getCurrency, getFxRate, formatMoney } from "./currency.js";
@@ -18,11 +18,8 @@ import { getCurrency, getFxRate, formatMoney } from "./currency.js";
     fxRate: 0,
   };
 
-  // ✅ backend origin (for /uploads/* paths)
-  const BACKEND_ORIGIN =
-    window.API_BASE ||
-    localStorage.getItem("API_BASE") ||
-    "http://localhost:4000";
+  // ✅ backend origin (for /uploads/* paths) - imported from api.js
+  const BACKEND_ORIGIN = SERVER_BASE;
 
   function escapeHtml(s) {
     return String(s || "")
