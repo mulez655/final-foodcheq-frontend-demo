@@ -1,14 +1,9 @@
 // js/vendor-dashboard.js
-import { api, clearVendorToken, getVendorToken } from "./api.js";
+import { api, clearVendorToken, getVendorToken, SERVER_BASE } from "./api.js";
 import { storage } from "./storage.js";
 
-// ✅ BACKEND ORIGIN (ONLY used for images)
-// - Local dev: http://localhost:4000
-// - When hosted: change to your Render URL (or set window.API_BASE somewhere if you already do)
-const BACKEND_ORIGIN =
-  window.API_BASE ||
-  localStorage.getItem("API_BASE") ||
-  "http://localhost:4000";
+// ✅ BACKEND ORIGIN (ONLY used for images) - imported from api.js
+const BACKEND_ORIGIN = SERVER_BASE;
 
 function moneyUSDFromCents(usdCents) {
   const amount = Number(usdCents || 0) / 100;
@@ -27,7 +22,7 @@ function escapeHtml(s) {
     .replaceAll("'", "&#039;");
 }
 
-// ✅ FIX: turn "/uploads/..." into "http://localhost:4000/uploads/..."
+// ✅ FIX: turn "/uploads/..." into full backend URL
 function imgSrc(url) {
   const u = String(url || "").trim();
   if (!u) return "";
