@@ -1,8 +1,16 @@
 // js/api.js
 import { storage } from "./storage.js";
 
-export const API_BASE = "http://localhost:4000/api";
-export const SERVER_BASE = "http://localhost:4000"; // For static files (no /api prefix)
+// ============================================
+// DEPLOYMENT CONFIG - UPDATE FOR PRODUCTION
+// ============================================
+// For local development: "http://localhost:4000"
+// For production: "https://your-app-name.onrender.com"
+const BACKEND_URL = "http://localhost:4000";
+// ============================================
+
+export const API_BASE = `${BACKEND_URL}/api`;
+export const SERVER_BASE = BACKEND_URL; // For static files (no /api prefix)
 
 export function resolveImageUrl(imageUrl) {
   const u = String(imageUrl || "").trim();
