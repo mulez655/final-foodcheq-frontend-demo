@@ -1,7 +1,7 @@
 // js/admin-new-features.js
 // Extends admin.js with Partnership, Investment, and Barter management
 
-import { api } from "./api.js";
+import { api, API_BASE } from "./api.js";
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -614,7 +614,7 @@ async function uploadDocument() {
     $("#documentUploadBtn").innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Uploading...';
 
     const token = localStorage.getItem("token") || "";
-    const res = await fetch(`${window.API_BASE || "http://localhost:4000/api"}/admin/partner-content/documents`, {
+    const res = await fetch(`${API_BASE}/admin/partner-content/documents`, {
       method: "POST",
       headers: token ? { Authorization: `Bearer ${token}` } : {},
       body: formData,
