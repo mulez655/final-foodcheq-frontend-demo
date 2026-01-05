@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | Cart</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+
+<!-- Tailwind compiled CSS -->
+<link rel="stylesheet" href="dist/css/style.css" />
+
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+  </head>
+
+  <body class="bg-white text-slate-900">
+    <!-- Headline Bar -->
+    <div class="w-full bg-slate-900 text-white js-headline-bar">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <!-- Mobile: Rotating single message -->
+        <div class="md:hidden relative h-5 overflow-hidden text-xs font-medium tracking-wide text-center">
+          <div class="headline-rotator absolute inset-0 flex items-center justify-center">
+            <span class="headline-text">FREE SHIPPING AND RETURNS</span>
+          </div>
+        </div>
+
+        <!-- Desktop: All messages visible -->
+        <div class="hidden md:flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium tracking-wide">
+          <span>FREE SHIPPING AND RETURNS</span>
+          <span class="opacity-60">•</span>
+          <span>LIMITED TIME OFFER - SHOP NOW</span>
+          <span class="opacity-60">•</span>
+          <span>BECOME A PARTNER TODAY</span>
+        </div>
+
+        <!-- Right links (desktop) -->
+        <div class="hidden md:flex items-center gap-6 text-xs">
+          <div class="flex items-center gap-5">
+            <a href="request-logistics.html" class="hover:opacity-80">Request<br />Logistics</a>
+            <a href="register.html" class="hover:opacity-80">Become<br />a Partner</a>
+          </div>
+
+          <!-- Currency selector -->
+          <div class="flex items-center gap-2">
+            <label for="currency" class="sr-only">Currency</label>
+            <select id="currency" class="rounded-lg bg-white/10 border border-white/20 px-2 py-1 text-white outline-none">
+              <option value="USD" selected>USD ($)</option>
+              <option value="NGN">NGN (₦)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <div id="navbarMount"></div>
+
+<main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">🛒 Your Shopping Cart</h1>
+      <p class="mt-1 text-sm text-slate-600">
+        Review items, adjust quantities, then proceed to checkout.
+      </p>
+    </div>
+
+    <a
+      href="product-category.html"
+      class="inline-flex items-center justify-center rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+    >
+      Continue Shopping
+    </a>
+  </div>
+
+  <!-- Empty state -->
+  <section id="emptyCart" class="mt-10 hidden">
+    <div class="rounded-3xl border border-slate-200 bg-slate-50 p-10 text-center">
+      <div class="mx-auto h-14 w-14 rounded-2xl bg-white border border-slate-200 flex items-center justify-center">
+        <i class="fa-solid fa-cart-shopping text-slate-700"></i>
+      </div>
+      <h2 class="mt-4 text-lg font-semibold">Your cart is empty</h2>
+      <p class="mt-1 text-sm text-slate-600">
+        Browse our store and add items to your cart.
+      </p>
+
+      <div class="mt-6">
+        <a
+          href="product-category.html"
+          class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+        >
+          Shop products
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart content -->
+  <section id="cartSection" class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Items -->
+    <div class="lg:col-span-8">
+      <div class="rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-slate-200">
+          <p class="text-sm font-semibold text-slate-900">Items</p>
+          <p class="text-xs text-slate-500">
+            Tip: quantities update your totals automatically.
+          </p>
+        </div>
+
+        <div id="cartList" class="divide-y divide-slate-200">
+          <!-- JS injects rows -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <aside class="lg:col-span-4">
+      <div class="rounded-3xl border border-slate-200 bg-white shadow-sm p-6">
+        <h2 class="text-lg font-semibold">Order Summary</h2>
+
+        <div class="mt-4 space-y-3 text-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-600">Subtotal</span>
+            <span class="font-semibold" id="cartSubtotal">$0.00</span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span class="text-slate-600">Shipping</span>
+            <span class="text-slate-700" id="cartShipping">Calculated at checkout</span>
+          </div>
+
+          <div class="border-t border-slate-200 pt-3 flex items-center justify-between">
+            <span class="text-slate-900 font-semibold">Total</span>
+            <span class="text-slate-900 font-bold text-lg" id="cartTotal">$0.00</span>
+          </div>
+        </div>
+
+        <div class="mt-6 space-y-3">
+          <button
+            class="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-600 disabled:opacity-60"
+            type="button"
+            data-checkout-btn
+          >
+            <i class="fa-solid fa-lock"></i>
+            Proceed to Checkout
+          </button>
+
+          <p class="text-xs text-slate-500 leading-relaxed">
+            By continuing, you agree to our Terms &amp; Conditions. Payment is secure.
+          </p>
+        </div>
+
+        <div class="mt-5 rounded-2xl bg-slate-50 border border-slate-200 p-4">
+          <p class="text-xs font-semibold text-slate-800">Backend-ready cart</p>
+          <p class="mt-1 text-xs text-slate-600">
+            This cart supports a stable product key now (sku/slug) and will auto-work
+            when backend product IDs are available.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<!-- Footer -->
+<div id="footerMount"></div>
+
+<!-- Scripts -->
+
+<script type="module" src="js/layout.js"></script>
+<script src="js/navbar.js"></script>
+
+<!-- IMPORTANT: cart.js is a module -->
+<script type="module" src="js/cart.js"></script>
+
+<!-- currency switcher -->
+<script type="module" src="js/currency.js"></script>
+
+<!-- cart-page.js can be module too (safe) -->
+<script type="module" src="js/cart-page.js"></script>
+
+<!-- GSAP Animation -->
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/animations.js"></script>
+  </body>
+</html>

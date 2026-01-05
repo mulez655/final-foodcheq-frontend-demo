@@ -1,0 +1,455 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="overflow-x-hidden overflow-y-scroll">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | Herbal Wellness</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+
+    <!-- Tailwind compiled CSS -->
+    <link rel="stylesheet" href="./dist/css/style.css" />
+
+    <!-- Font Awesome (icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body class="bg-white text-slate-900 overflow-x-hidden">
+    <!-- Headline Bar -->
+    <div class="w-full bg-slate-900 text-white js-headline-bar">
+      <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between"
+      >
+        <!-- Mobile: Rotating single message -->
+        <div class="md:hidden relative h-5 overflow-hidden text-xs font-medium tracking-wide text-center">
+          <div id="headlineRotator" class="absolute inset-0 flex items-center justify-center">
+            <span id="headlineText">FREE SHIPPING AND RETURNS</span>
+          </div>
+        </div>
+
+        <!-- Desktop: All messages visible -->
+        <div class="hidden md:flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium tracking-wide">
+          <span>FREE SHIPPING AND RETURNS</span>
+          <span class="opacity-60">•</span>
+          <span>LIMITED TIME OFFER - SHOP NOW</span>
+          <span class="opacity-60">•</span>
+          <span>BECOME A PARTNER TODAY</span>
+        </div>
+
+        <!-- Right links (desktop) -->
+        <div class="hidden md:flex items-center gap-6 text-xs">
+          <div class="flex items-center gap-5">
+            <a href="request-logistics.html" class="hover:opacity-80">
+              Request<br />Logistics
+            </a>
+            <a href="register.html" class="hover:opacity-80">
+              Become<br />a Partner
+            </a>
+          </div>
+
+          <!-- Currency selector (static for now) -->
+          <div class="flex items-center gap-2">
+            <label for="currency" class="sr-only">Currency</label>
+            <select
+              id="currency"
+              class="rounded-lg bg-white/10 border border-white/20 px-2 py-1 text-white outline-none"
+            >
+              <option value="USD" selected>USD ($)</option>
+              <option value="NGN">NGN (₦)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar Mount -->
+    <div id="navbarMount"></div>
+
+    <!-- Main -->
+    <main>
+      <!-- HERO -->
+      <section class="relative overflow-hidden">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="space-y-6">
+              <div
+                class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 shadow-sm"
+              >
+                <span class="inline-block h-2 w-2 rounded-full bg-emerald-600"></span>
+                Herbal wellness, delivered
+              </div>
+
+              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+                Natural Herbal Remedies That Heal From Within
+              </h1>
+
+              <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+                We bring you organic herbal and medicinal foods sourced from around
+                the world. Discover solutions for your wellness at the best prices
+                with trusted quality,Try a free sample today.
+              </p>
+
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="product-category.html"
+                  class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition-transform hover:scale-[1.02]"
+                >
+                  Shop Now
+                </a>
+                <a
+                  href="sample.html"
+                  class="inline-flex items-center justify-center rounded-xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition-transform hover:scale-[1.02]"
+                >
+                  Request free sample
+                </a>
+              </div>
+            </div>
+
+            <div class="relative">
+              <div
+                class="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-emerald-100 to-slate-100 blur-2xl opacity-70"
+                aria-hidden="true"
+              ></div>
+
+              <div class="relative rounded-3xl border border-slate-200 bg-white shadow-lg overflow-hidden">
+                <img
+                  src="image/ladynTea.jpg"
+                  alt="Herbal Products"
+                  class="w-full h-[340px] sm:h-[420px] object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED PRODUCTS -->
+      <section class="py-12 lg:py-16 bg-slate-50 border-y border-slate-200">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+            <div>
+              <p class="text-sm font-semibold text-emerald-700">Featured Products</p>
+              <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">
+                Best picks for your wellness
+              </h2>
+            </div>
+            <p class="text-sm text-slate-600">
+              Check Out All Products
+              <a href="product-category.html" class="font-semibold text-slate-900 underline underline-offset-4">
+                here
+              </a>
+            </p>
+          </div>
+
+          <div
+            id="homeProductsGrid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <!-- injected by JS -->
+          </div>
+
+          <div
+            id="homeProductsEmpty"
+            class="hidden mt-6 rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-center"
+          >
+            <p class="font-bold">No products yet</p>
+            <p class="mt-2 text-sm text-slate-600">
+              Please check back soon or visit the shop page.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      
+
+      <!-- WHO WE ARE -->
+      <section class="py-12 lg:py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+              <img src="images/companylady.jpg" alt="herbal" class="w-full h-[360px] object-cover" />
+            </div>
+
+            <div class="space-y-5">
+              <p class="text-sm font-semibold text-emerald-700">WHO WE ARE</p>
+              <p class="text-slate-700 leading-relaxed">
+                🌿 FoodCheQ is a technology driven herbal agro-processing company
+                that transforms traditional medicinal crops into standardized,
+                export-ready foods and extracts while empowering smallholder farmers
+                through a cooperative and traceable&nbsp;supply&nbsp;chain.
+              </p>
+
+              <ul class="space-y-2 text-slate-700">
+                <li>🌿 100% natural and organic products</li>
+                <li>🤝 Community-powered cooperative</li>
+                <li>🌍 Sustainable and ethical sourcing</li>
+                <li>💚 Focused on wellness, not just profit</li>
+              </ul>
+
+              <a
+                href="about.html"
+                class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition-transform hover:scale-[1.02]"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DIFFERENCE -->
+      <section class="py-12 lg:py-16 bg-slate-50 border-y border-slate-200">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">
+            💚 What Makes FoodCheQ Herbals Different?
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+              <img src="image/natural-ingredient.jpg" alt="Natural Ingredients" class="h-12 w-12 rounded-xl object-cover mb-4" />
+              <p class="text-sm text-slate-700">
+                100% natural ingredients backed by traditional remedies
+              </p>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+              <img src="image/fast-delivery.jpg" alt="Fast Delivery" class="h-12 w-12 rounded-xl object-cover mb-4" />
+              <p class="text-sm text-slate-700">Fast, reliable doorstep delivery</p>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+              <img src="image/community-love.jpg" alt="Community Loved" class="h-12 w-12 rounded-xl object-cover mb-4" />
+              <p class="text-sm text-slate-700">Loved and trusted by our community</p>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+              <img src="images/Evidence based.jpg" alt="Evidence Based" class="h-12 w-12 rounded-xl object-cover mb-4" />
+              <p class="text-sm text-slate-700">Evidence-based herbal alternatives</p>
+            </div>
+          </div>
+
+          <div class="mt-10">
+            <a
+              href="sample.html"
+              class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-600 transition-transform hover:scale-[1.02]"
+            >
+              Still curious? Get a free sample
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMUNITY FIRST -->
+      <section class="py-12 lg:py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="space-y-5">
+              <h3 class="text-2xl sm:text-3xl font-bold tracking-tight">
+                👩🏽‍🌾 Community First, Always
+              </h3>
+              <p class="text-slate-600">
+                At FoodCheQ, wellness is more than personal health — it's about
+                community, sustainability, and empowerment.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="rounded-2xl border border-slate-200 p-4 hover:shadow-sm transition-shadow bg-white">
+                  <p class="font-semibold">🌿 Healing Foods, Delivered</p>
+                  <p class="text-sm text-slate-600">
+                    Herbal boxes with teas, blends, and greens delivered to your door.
+                  </p>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 p-4 hover:shadow-sm transition-shadow bg-white">
+                  <p class="font-semibold">🤝 Cooperative Model</p>
+                  <p class="text-sm text-slate-600">
+                    Member-owned, community-powered, and not profit-driven.
+                  </p>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 p-4 hover:shadow-sm transition-shadow bg-white">
+                  <p class="font-semibold">📚 Evidence-Based</p>
+                  <p class="text-sm text-slate-600">
+                    Every product backed by research or centuries of safe use.
+                  </p>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 p-4 hover:shadow-sm transition-shadow bg-white">
+                  <p class="font-semibold">💚 Affordable Wellness</p>
+                  <p class="text-sm text-slate-600">
+                    Natural care that fits every family's budget.
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href="sample.html"
+                class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-600 transition-transform hover:scale-[1.02]"
+              >
+                Still curious? Get a free sample
+              </a>
+            </div>
+
+            <div class="rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+              <img
+                src="https://foodcheq.coop/upload/5VmuTsawAkmSe5D4zGIpxTU4bPtpGh.jpg"
+                alt="FoodCheQ Community"
+                class="w-full h-[420px] object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OUR SERVICES -->
+      <section class="py-12 lg:py-16 bg-slate-50 border-y border-slate-200">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+            <div>
+              <p class="text-sm font-semibold text-emerald-700">Our Services</p>
+              <h3 class="text-2xl sm:text-3xl font-bold tracking-tight">
+                Built for every kind of buyer
+              </h3>
+            </div>
+            <p class="text-sm text-slate-600">
+              Check out our services
+              <a class="font-semibold text-slate-900 underline underline-offset-4" href="services.html">here</a>
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="services.html" class="group rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition">
+              <div class="relative overflow-hidden">
+                <img
+                  src="https://foodcheq.coop/upload/p9zgkTX5FxVAEZ5QmDtG02ot5QOiZQ.jpg"
+                  alt="Retailers"
+                  class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div class="absolute left-4 top-4 inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/90 border border-slate-200">
+                  <i class="fas fa-store text-slate-900"></i>
+                </div>
+              </div>
+              <div class="p-5 flex items-center justify-between">
+                <p class="font-semibold text-slate-900">For Retailers</p>
+                <span class="text-sm font-semibold text-emerald-700 group-hover:underline">Learn More</span>
+              </div>
+            </a>
+
+            <a href="services.html" class="group rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition">
+              <div class="relative overflow-hidden">
+                <img
+                  src="https://foodcheq.coop/upload/tOjmlMxQ1uYxc8d9c9Wj8mxqcw6Ykw.jpg"
+                  alt="Wholesale"
+                  class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div class="absolute left-4 top-4 inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/90 border border-slate-200">
+                  <i class="fas fa-truck-loading text-slate-900"></i>
+                </div>
+              </div>
+              <div class="p-5 flex items-center justify-between">
+                <p class="font-semibold text-slate-900">For Wholesale</p>
+                <span class="text-sm font-semibold text-emerald-700 group-hover:underline">Learn More</span>
+              </div>
+            </a>
+
+            <a href="services.html" class="group rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition">
+              <div class="relative overflow-hidden">
+                <img
+                  src="https://foodcheq.coop/upload/dFuVBQxsuFYzrHhdV9CPULn5RYGSnR.jpg"
+                  alt="Suppliers"
+                  class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div class="absolute left-4 top-4 inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/90 border border-slate-200">
+                  <i class="fas fa-handshake text-slate-900"></i>
+                </div>
+              </div>
+              <div class="p-5 flex items-center justify-between">
+                <p class="font-semibold text-slate-900">Suppliers</p>
+                <span class="text-sm font-semibold text-emerald-700 group-hover:underline">Learn More</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- EFFORTLESS SHOPPING -->
+      <section class="py-12 lg:py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto space-y-4">
+            <p class="text-sm font-semibold text-emerald-700">
+              Effortless Shopping Meets Reliable Shipping
+            </p>
+            <h3 class="text-2xl sm:text-3xl font-bold tracking-tight">
+              Watch how it works
+            </h3>
+          </div>
+
+          <div class="mt-8 rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+            <div class="aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/CcIx2NtQoS0"
+                title="FoodCheQ Video"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href="sample.html"
+              class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition-transform hover:scale-[1.02]"
+            >
+              Not sure what to order? Get a free sample
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- JOIN US -->
+      <section class="py-12 lg:py-16 bg-slate-900">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div
+            class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-8 sm:p-10 lg:p-12 text-center"
+          >
+            <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              SIGN UP TODAY
+            </h3>
+            <p class="mt-3 text-white/80">
+              Join us now and get a <strong class="text-white">free sample</strong> to start your journey!
+            </p>
+
+            <div class="mt-6">
+              <a
+                href="register.html"
+                class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-500 transition-transform hover:scale-[1.02]"
+              >
+                Sign Up &amp; Get Free Sample
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Mount -->
+    <div  id="footerMount"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/layout.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module" src="js/currency.js"></script>
+    <script type="module" src="js/home-products.js"></script>
+
+    <!-- GSAP Animation -->
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <script src="js/animations.js"></script>
+
+
+  </body>
+</html>

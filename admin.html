@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel • FoodCheQ</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body class="min-h-screen bg-slate-50 text-slate-900">
+    <!-- Mobile drawer backdrop -->
+    <div id="adminBackdrop" class="hidden fixed inset-0 z-[80] bg-black/40"></div>
+
+    <!-- Sidebar / Drawer -->
+    <aside
+      id="adminSidebar"
+      class="fixed left-0 top-0 z-[90] h-full w-[280px] -translate-x-full lg:translate-x-0 transition bg-white border-r border-slate-200 flex flex-col"
+      aria-hidden="true"
+    >
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200 flex-shrink-0">
+        <a href="index.html" class="flex items-center gap-3">
+          <div
+            class="h-9 w-9 grid place-items-center rounded-xl bg-emerald-600 text-white font-extrabold"
+          >
+            FQ
+          </div>
+          <div class="leading-tight">
+            <div class="font-extrabold">FoodCheQ</div>
+            <div class="text-[11px] text-slate-500 -mt-0.5">Admin Console</div>
+          </div>
+        </a>
+
+        <button
+          id="adminCloseDrawer"
+          class="lg:hidden h-10 w-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-50"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Scrollable content area -->
+      <div class="flex-1 overflow-y-auto p-5">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div class="flex items-center justify-between">
+            <div class="min-w-0">
+              <div id="adminName" class="font-bold truncate">Admin</div>
+              <div id="adminEmail" class="text-xs text-slate-600 truncate">—</div>
+            </div>
+            <span
+              class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700"
+            >
+              <i class="fa-solid fa-shield-halved mr-2"></i>ADMIN
+            </span>
+          </div>
+        </div>
+
+        <nav class="mt-5 space-y-2">
+          <button
+            data-tab="vendors"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-store text-slate-500"></i>
+            <span>Vendors</span>
+          </button>
+
+          <button
+            data-tab="users"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-users text-slate-500"></i>
+            <span>Users</span>
+          </button>
+
+          <button
+            data-tab="orders"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-receipt text-slate-500"></i>
+            <span>Orders</span>
+          </button>
+
+          <!-- ✅ NEW: Products -->
+          <button
+            data-tab="products"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-boxes-stacked text-slate-500"></i>
+            <span>Products</span>
+          </button>
+
+          <button
+            data-tab="fx"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-money-bill-trend-up text-slate-500"></i>
+            <span>FX Rate</span>
+          </button>
+
+          <div class="mt-4 mb-2 px-2">
+            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">New Features</span>
+          </div>
+
+          <button
+            data-tab="partnerships"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-handshake text-slate-500"></i>
+            <span>Partnerships</span>
+          </button>
+
+          <button
+            data-tab="investments"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-chart-line text-slate-500"></i>
+            <span>Investments</span>
+          </button>
+
+          <button
+            data-tab="barter"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-exchange-alt text-slate-500"></i>
+            <span>Barter</span>
+          </button>
+
+          <button
+            data-tab="partner-content"
+            class="w-full text-left rounded-2xl px-4 py-3 border border-slate-200 bg-white hover:bg-slate-50 font-semibold flex items-center gap-3"
+          >
+            <i class="fa-solid fa-newspaper text-slate-500"></i>
+            <span>Partner Content</span>
+          </button>
+        </nav>
+
+        <div class="mt-6 pt-6 border-t border-slate-200">
+          <button
+            data-logout
+            class="w-full rounded-2xl bg-slate-900 text-white px-4 py-3 font-semibold hover:bg-slate-800 flex items-center justify-center gap-2"
+          >
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+
+          <p class="mt-4 text-xs text-slate-500">
+            Tip: Click an order row to open the details modal.
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="lg:pl-[280px]">
+      <!-- Topbar -->
+      <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+        <div class="h-16 px-4 sm:px-6 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <button
+              id="adminOpenDrawer"
+              class="lg:hidden h-10 w-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-50"
+              aria-label="Menu"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div>
+              <div class="text-sm font-bold leading-tight">Admin Panel</div>
+              <div id="adminSubtitle" class="text-[12px] text-slate-500 -mt-0.5">
+                Manage vendors, users, orders, products, and FX rate.
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span
+              id="adminSessionPill"
+              class="hidden sm:inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700"
+            >
+              <i class="fa-regular fa-clock mr-2"></i> Session active
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="px-4 sm:px-6 py-6">
+        <!-- Global message -->
+        <div id="adminMsg" class="hidden mb-5 rounded-2xl border px-4 py-3 text-sm"></div>
+
+        <!-- Vendors -->
+        <section id="tab-vendors" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-extrabold">Vendors</h2>
+            <div class="flex items-center gap-2">
+              <button
+                id="btnReloadVendors"
+                class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+              >
+                Refresh
+              </button>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="mb-4 rounded-3xl border border-slate-200 bg-white p-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <input
+                id="vendorsSearch"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="Search business name, email, contact name..."
+              />
+
+              <select
+                id="vendorsStatus"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+              >
+                <option value="">All Status</option>
+                <option value="PENDING">PENDING</option>
+                <option value="APPROVED">APPROVED</option>
+              </select>
+
+              <select
+                id="vendorsActive"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+              >
+                <option value="">All Active</option>
+                <option value="true">Active only</option>
+                <option value="false">Inactive only</option>
+              </select>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+              <span id="vendorsCount">—</span>
+              <button id="vendorsClear" class="font-semibold hover:text-slate-900">Clear filters</button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="min-w-full">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                  <tr class="text-left text-xs text-slate-500">
+                    <th class="px-6 py-3">Business</th>
+                    <th class="py-3">Email</th>
+                    <th class="py-3">Status</th>
+                    <th class="py-3">Active</th>
+                    <th class="py-3 pr-6 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminVendorsTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Users -->
+        <section id="tab-users" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-extrabold">Users</h2>
+            <button
+              id="btnReloadUsers"
+              class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+            >
+              Refresh
+            </button>
+          </div>
+
+          <!-- Filters -->
+          <div class="mb-4 rounded-3xl border border-slate-200 bg-white p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input
+                id="usersSearch"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="Search name or email..."
+              />
+              <select
+                id="usersRole"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+              >
+                <option value="">All Roles</option>
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+              </select>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+              <span id="usersCount">—</span>
+              <button id="usersClear" class="font-semibold hover:text-slate-900">Clear filters</button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="min-w-full">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                  <tr class="text-left text-xs text-slate-500">
+                    <th class="px-6 py-3">User</th>
+                    <th class="py-3">Email</th>
+                    <th class="py-3">Role</th>
+                    <th class="py-3 pr-6 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminUsersTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Orders -->
+        <section id="tab-orders" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-extrabold">Orders</h2>
+            <button
+              id="btnReloadOrders"
+              class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+            >
+              Refresh
+            </button>
+          </div>
+
+          <!-- Filters -->
+          <div class="mb-4 rounded-3xl border border-slate-200 bg-white p-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+              <input
+                id="ordersSearch"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="Search order id..."
+              />
+
+              <select
+                id="ordersStatus"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+              >
+                <option value="">All Status</option>
+                <option value="PENDING">PENDING</option>
+                <option value="ACCEPTED">ACCEPTED</option>
+                <option value="COMPLETED">COMPLETED</option>
+                <option value="CANCELLED">CANCELLED</option>
+              </select>
+
+              <select
+                id="ordersPayment"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+              >
+                <option value="">All Payment</option>
+                <option value="PENDING">PENDING</option>
+                <option value="PAID">PAID</option>
+                <option value="FAILED">FAILED</option>
+                <option value="REFUNDED">REFUNDED</option>
+              </select>
+
+              <input
+                id="ordersVendorOrUser"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="Filter by vendorId or userId..."
+              />
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+              <span id="ordersCount">—</span>
+              <button id="ordersClear" class="font-semibold hover:text-slate-900">Clear filters</button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="min-w-full">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                  <tr class="text-left text-xs text-slate-500">
+                    <th class="px-6 py-3">Order</th>
+                    <th class="py-3">Customer</th>
+                    <th class="py-3">Vendor</th>
+                    <th class="py-3">Status</th>
+                    <th class="py-3">Payment</th>
+                    <th class="py-3 pr-6 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="adminOrdersTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ✅ NEW: Products -->
+        <section id="tab-products" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-extrabold">Products</h2>
+            <button
+              id="btnReloadProducts"
+              class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+            >
+              Refresh
+            </button>
+          </div>
+
+          <!-- Filters -->
+          <div class="mb-4 rounded-3xl border border-slate-200 bg-white p-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+              <input
+                id="productsSearch"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="Search product name, category, vendor..."
+              />
+
+              <select
+                id="productsStatus"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+              >
+                <option value="">All Status</option>
+                <option value="DRAFT">DRAFT</option>
+                <option value="PUBLISHED">PUBLISHED</option>
+                <option value="ARCHIVED">ARCHIVED</option>
+              </select>
+
+              <select
+                id="productsAvailable"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+              >
+                <option value="">All Availability</option>
+                <option value="true">Available only</option>
+                <option value="false">Unavailable only</option>
+              </select>
+
+              <label class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm bg-white">
+                <input id="productsIncludeDeleted" type="checkbox" class="rounded border-slate-300" />
+                Include deleted
+              </label>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+              <span id="productsCount">—</span>
+              <button id="productsClear" class="font-semibold hover:text-slate-900">Clear filters</button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="min-w-full">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                  <tr class="text-left text-xs text-slate-500">
+                    <th class="px-6 py-3">Product</th>
+                    <th class="py-3">Vendor</th>
+                    <th class="py-3">Price</th>
+                    <th class="py-3">Status</th>
+                    <th class="py-3">Available</th>
+                    <th class="py-3">Deleted</th>
+                    <th class="py-3 pr-6 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminProductsTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- FX -->
+        <section id="tab-fx" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-extrabold">USD → NGN FX Rate</h2>
+            <button
+              id="btnReloadFx"
+              class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+            >
+              Reload
+            </button>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 max-w-xl">
+            <form id="fxForm" class="space-y-4">
+              <div>
+                <label class="text-sm font-medium text-slate-700">Rate (₦ per $1)</label>
+                <input
+                  id="fxRate"
+                  type="number"
+                  step="0.01"
+                  min="1"
+                  class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                  placeholder="e.g. 1700"
+                />
+                <p class="mt-2 text-xs text-slate-500">
+                  This rate is used to convert product USD prices into Naira at checkout.
+                </p>
+              </div>
+
+              <button
+                type="submit"
+                class="rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-600"
+              >
+                Save Rate
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- Partnerships Tab -->
+        <section id="tab-partnerships" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-extrabold">Partnership Applications</h2>
+            <button id="btnReloadPartnerships" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">
+              Refresh
+            </button>
+          </div>
+
+          <div class="mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+              <p class="text-xs text-amber-600 font-medium">Pending</p>
+              <p id="partnershipPending" class="text-2xl font-bold text-amber-700">0</p>
+            </div>
+            <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+              <p class="text-xs text-emerald-600 font-medium">Approved</p>
+              <p id="partnershipApproved" class="text-2xl font-bold text-emerald-700">0</p>
+            </div>
+            <div class="bg-red-50 rounded-xl p-4 border border-red-200">
+              <p class="text-xs text-red-600 font-medium">Rejected</p>
+              <p id="partnershipRejected" class="text-2xl font-bold text-red-700">0</p>
+            </div>
+            <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
+              <p class="text-xs text-blue-600 font-medium">Total Partners</p>
+              <p id="partnershipTotal" class="text-2xl font-bold text-blue-700">0</p>
+            </div>
+          </div>
+
+          <div class="mb-4 rounded-3xl border border-slate-200 bg-white p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input id="partnershipsSearch" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" placeholder="Search name, location, email..." />
+              <select id="partnershipsStatus" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400">
+                <option value="">All Status</option>
+                <option value="PENDING">Pending</option>
+                <option value="APPROVED">Approved</option>
+                <option value="REJECTED">Rejected</option>
+                <option value="NEEDS_INFO">Needs Info</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th class="px-6 py-4 text-xs font-bold uppercase text-slate-600">Applicant</th>
+                    <th class="py-4 text-xs font-bold uppercase text-slate-600">Location</th>
+                    <th class="py-4 text-xs font-bold uppercase text-slate-600">Status</th>
+                    <th class="py-4 text-xs font-bold uppercase text-slate-600">Date</th>
+                    <th class="py-4 pr-6 text-xs font-bold uppercase text-slate-600 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminPartnershipsTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Investments Tab -->
+        <section id="tab-investments" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-extrabold">Investment Opportunities</h2>
+            <div class="flex gap-2">
+              <button id="btnReloadInvestments" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">
+                Refresh
+              </button>
+              <button id="btnNewInvestment" class="rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600">
+                <i class="fa-solid fa-plus mr-2"></i> New
+              </button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+            <div id="investmentsList" class="divide-y divide-slate-100"></div>
+            <div id="noInvestments" class="p-12 text-center hidden">
+              <p class="text-slate-500">No investment opportunities yet.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Barter Tab -->
+        <section id="tab-barter" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-extrabold">Barter Offers</h2>
+            <button id="btnReloadBarter" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">
+              Refresh
+            </button>
+          </div>
+
+          <div class="mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
+              <p class="text-xs text-blue-600 font-medium">Active</p>
+              <p id="barterActive" class="text-2xl font-bold text-blue-700">0</p>
+            </div>
+            <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+              <p class="text-xs text-emerald-600 font-medium">Completed</p>
+              <p id="barterCompleted" class="text-2xl font-bold text-emerald-700">0</p>
+            </div>
+            <div class="bg-red-50 rounded-xl p-4 border border-red-200">
+              <p class="text-xs text-red-600 font-medium">Disputed</p>
+              <p id="barterDisputed" class="text-2xl font-bold text-red-700">0</p>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+              <p class="text-xs text-slate-600 font-medium">Total</p>
+              <p id="barterTotal" class="text-2xl font-bold text-slate-700">0</p>
+            </div>
+          </div>
+
+          <div class="mb-4 rounded-3xl border border-slate-200 bg-white p-4">
+            <select id="barterStatus" class="w-full md:w-auto rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400">
+              <option value="">All Status</option>
+              <option value="SENT">Sent</option>
+              <option value="ACCEPTED">Accepted</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="COMPLETED">Completed</option>
+              <option value="DISPUTED">Disputed</option>
+              <option value="REJECTED">Rejected</option>
+              <option value="CANCELLED">Cancelled</option>
+            </select>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th class="px-6 py-4 text-xs font-bold uppercase text-slate-600">Initiator</th>
+                    <th class="py-4 text-xs font-bold uppercase text-slate-600">Recipient</th>
+                    <th class="py-4 text-xs font-bold uppercase text-slate-600">Status</th>
+                    <th class="py-4 text-xs font-bold uppercase text-slate-600">Items</th>
+                    <th class="py-4 text-xs font-bold uppercase text-slate-600">Date</th>
+                    <th class="py-4 pr-6 text-xs font-bold uppercase text-slate-600 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminBarterTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Partner Content Tab -->
+        <section id="tab-partner-content" class="hidden">
+          <!-- Sub-tabs -->
+          <div class="flex items-center gap-4 mb-6 border-b border-slate-200">
+            <button data-subtab="announcements" class="subtab-btn px-4 py-2 text-sm font-semibold border-b-2 border-emerald-600 text-emerald-700">
+              Announcements
+            </button>
+            <button data-subtab="documents" class="subtab-btn px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-900 border-b-2 border-transparent">
+              Documents
+            </button>
+          </div>
+
+          <!-- Announcements Sub-section -->
+          <div id="subtab-announcements">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl font-extrabold">Partner Announcements</h2>
+              <div class="flex gap-2">
+                <button id="btnReloadAnnouncements" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">
+                  Refresh
+                </button>
+                <button id="btnNewAnnouncement" class="rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600">
+                  <i class="fa-solid fa-plus mr-2"></i> New
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+                <p class="text-xs text-emerald-600 font-medium">Active</p>
+                <p id="announcementActive" class="text-2xl font-bold text-emerald-700">0</p>
+              </div>
+              <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                <p class="text-xs text-slate-600 font-medium">Total</p>
+                <p id="announcementTotal" class="text-2xl font-bold text-slate-700">0</p>
+              </div>
+            </div>
+
+            <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+              <div id="announcementsList" class="divide-y divide-slate-100"></div>
+              <div id="noAnnouncements" class="p-12 text-center hidden">
+                <p class="text-slate-500">No announcements yet. Create one to notify partners.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documents Sub-section -->
+          <div id="subtab-documents" class="hidden">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl font-extrabold">Partner Documents</h2>
+              <div class="flex gap-2">
+                <button id="btnReloadDocuments" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">
+                  Refresh
+                </button>
+                <button id="btnNewDocument" class="rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600">
+                  <i class="fa-solid fa-upload mr-2"></i> Upload
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
+                <p class="text-xs text-blue-600 font-medium">Active</p>
+                <p id="documentActive" class="text-2xl font-bold text-blue-700">0</p>
+              </div>
+              <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                <p class="text-xs text-slate-600 font-medium">Total</p>
+                <p id="documentTotal" class="text-2xl font-bold text-slate-700">0</p>
+              </div>
+            </div>
+
+            <div class="mb-4 rounded-3xl border border-slate-200 bg-white p-4">
+              <select id="docCategoryFilter" class="w-full md:w-auto rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400">
+                <option value="">All Categories</option>
+                <option value="GENERAL">General</option>
+                <option value="REPORT">Reports</option>
+                <option value="GUIDE">Guides</option>
+                <option value="CONTRACT">Contracts</option>
+                <option value="FINANCIAL">Financial</option>
+                <option value="POLICY">Policies</option>
+              </select>
+            </div>
+
+            <div class="rounded-3xl border border-slate-200 bg-white overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                  <thead class="bg-slate-50 border-b border-slate-200">
+                    <tr>
+                      <th class="px-6 py-4 text-xs font-bold uppercase text-slate-600">Document</th>
+                      <th class="py-4 text-xs font-bold uppercase text-slate-600">Category</th>
+                      <th class="py-4 text-xs font-bold uppercase text-slate-600">Size</th>
+                      <th class="py-4 text-xs font-bold uppercase text-slate-600">Downloads</th>
+                      <th class="py-4 text-xs font-bold uppercase text-slate-600">Status</th>
+                      <th class="py-4 pr-6 text-xs font-bold uppercase text-slate-600 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="documentsTable"></tbody>
+                </table>
+              </div>
+              <div id="noDocuments" class="p-12 text-center hidden">
+                <p class="text-slate-500">No documents uploaded yet.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="hidden fixed inset-0 z-[120]">
+      <div id="orderModalBackdrop" class="absolute inset-0 bg-black/40"></div>
+
+      <div class="relative mx-auto mt-10 w-[94%] max-w-3xl overflow-hidden rounded-3xl bg-white shadow-2xl border border-slate-200
+         max-h-[85vh] flex flex-col">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+          <div class="min-w-0">
+            <div class="text-sm text-slate-500">Order Details</div>
+            <div id="orderModalTitle" class="font-extrabold truncate">—</div>
+          </div>
+
+          <button
+            id="orderModalClose"
+            class="h-10 w-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-50"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div id="orderModalBody" class="p-6 overflow-y-auto flex-1">
+          <div class="text-slate-500 text-sm">
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading...
+          </div>
+        </div>
+
+        <div class="px-6 py-4 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button
+            id="orderModalClose2"
+            class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ NEW: Product Details Modal -->
+    <div id="productModal" class="hidden fixed inset-0 z-[120]">
+      <div id="productModalBackdrop" class="absolute inset-0 bg-black/40"></div>
+
+      <div class="relative mx-auto mt-10 w-[94%] max-w-3xl rounded-3xl bg-white shadow-2xl border border-slate-200
+         max-h-[85vh] flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+          <div class="min-w-0">
+            <div class="text-sm text-slate-500">Product Details</div>
+            <div id="productModalTitle" class="font-extrabold truncate">—</div>
+          </div>
+
+          <button
+            id="productModalClose"
+            class="h-10 w-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-50"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div id="productModalBody" class="p-6 flex-1 overflow-y-auto">
+          <div class="text-slate-500 text-sm">
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading...
+          </div>
+        </div>
+
+        <div class="px-6 py-4 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button
+            id="productModalClose2"
+            class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Announcement Modal -->
+    <div id="announcementModal" class="hidden fixed inset-0 z-[120]">
+      <div id="announcementModalBackdrop" class="absolute inset-0 bg-black/40"></div>
+
+      <div class="relative mx-auto mt-10 w-[94%] max-w-2xl rounded-3xl bg-white shadow-2xl border border-slate-200 max-h-[85vh] flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+          <div class="min-w-0">
+            <div class="text-sm text-slate-500">Partner Announcement</div>
+            <div id="announcementModalTitle" class="font-extrabold truncate">New Announcement</div>
+          </div>
+
+          <button id="announcementModalClose" class="h-10 w-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-50" aria-label="Close">
+            ✕
+          </button>
+        </div>
+
+        <div class="p-6 flex-1 overflow-y-auto">
+          <form id="announcementForm" class="space-y-4">
+            <input type="hidden" id="announcementId" />
+
+            <div>
+              <label class="text-sm font-medium text-slate-700">Title *</label>
+              <input id="announcementTitleInput" type="text" maxlength="200" required class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" placeholder="Announcement title" />
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-slate-700">Content *</label>
+              <textarea id="announcementContentInput" rows="6" maxlength="10000" required class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400 resize-none" placeholder="Write your announcement content here..."></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm font-medium text-slate-700">Priority (0-100)</label>
+                <input id="announcementPriorityInput" type="number" min="0" max="100" value="0" class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" />
+                <p class="mt-1 text-xs text-slate-500">Higher = shown first</p>
+              </div>
+
+              <div>
+                <label class="text-sm font-medium text-slate-700">Expires At (optional)</label>
+                <input id="announcementExpiresInput" type="datetime-local" class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="px-6 py-4 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button id="announcementModalClose2" type="button" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">
+            Cancel
+          </button>
+          <button id="announcementSaveBtn" type="button" class="rounded-xl bg-emerald-700 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-600">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Document Upload Modal -->
+    <div id="documentModal" class="hidden fixed inset-0 z-[120]">
+      <div id="documentModalBackdrop" class="absolute inset-0 bg-black/40"></div>
+
+      <div class="relative mx-auto mt-10 w-[94%] max-w-2xl rounded-3xl bg-white shadow-2xl border border-slate-200 max-h-[85vh] flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+          <div class="min-w-0">
+            <div class="text-sm text-slate-500">Partner Document</div>
+            <div id="documentModalTitle" class="font-extrabold truncate">Upload Document</div>
+          </div>
+
+          <button id="documentModalClose" class="h-10 w-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-50" aria-label="Close">
+            ✕
+          </button>
+        </div>
+
+        <div class="p-6 flex-1 overflow-y-auto">
+          <form id="documentForm" class="space-y-4">
+            <div>
+              <label class="text-sm font-medium text-slate-700">Title *</label>
+              <input id="documentTitleInput" type="text" maxlength="200" required class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" placeholder="Document title" />
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-slate-700">Description</label>
+              <textarea id="documentDescInput" rows="3" maxlength="1000" class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400 resize-none" placeholder="Brief description of the document..."></textarea>
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-slate-700">Category</label>
+              <select id="documentCategoryInput" class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400">
+                <option value="GENERAL">General</option>
+                <option value="REPORT">Report</option>
+                <option value="GUIDE">Guide</option>
+                <option value="CONTRACT">Contract</option>
+                <option value="FINANCIAL">Financial</option>
+                <option value="POLICY">Policy</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-slate-700">File *</label>
+              <div id="dropZone" class="mt-1 w-full rounded-xl border-2 border-dashed border-slate-300 p-8 text-center hover:border-emerald-400 hover:bg-emerald-50/50 transition cursor-pointer">
+                <i class="fa-solid fa-cloud-arrow-up text-4xl text-slate-400 mb-3"></i>
+                <p class="text-sm text-slate-600">Click or drag file here</p>
+                <p class="text-xs text-slate-500 mt-1">PDF, DOC, DOCX, XLS, XLSX, TXT, Images (max 10MB)</p>
+                <input id="documentFileInput" type="file" class="hidden" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.png,.jpg,.jpeg,.webp" />
+              </div>
+              <p id="selectedFileName" class="mt-2 text-sm text-emerald-700 font-medium hidden"></p>
+            </div>
+          </form>
+        </div>
+
+        <div class="px-6 py-4 border-t border-slate-200 flex items-center justify-end gap-2">
+          <button id="documentModalClose2" type="button" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">
+            Cancel
+          </button>
+          <button id="documentUploadBtn" type="button" class="rounded-xl bg-emerald-700 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-600">
+            <i class="fa-solid fa-upload mr-2"></i> Upload
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/admin-guard.js"></script>
+    <script type="module" src="js/admin.js"></script>
+    <script type="module" src="js/admin-new-features.js"></script>
+  </body>
+</html>

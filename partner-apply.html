@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | Partner Application</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  </head>
+  <body class="bg-white text-slate-900">
+    <!-- Headline Bar -->
+    <div class="w-full bg-slate-900 text-white js-headline-bar">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <!-- Mobile: Rotating single message -->
+        <div class="md:hidden relative h-5 overflow-hidden text-xs font-medium tracking-wide text-center">
+          <div class="headline-rotator absolute inset-0 flex items-center justify-center">
+            <span class="headline-text">FREE SHIPPING AND RETURNS</span>
+          </div>
+        </div>
+
+        <!-- Desktop: All messages visible -->
+        <div class="hidden md:flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium tracking-wide">
+          <span>FREE SHIPPING AND RETURNS</span>
+          <span class="opacity-60">•</span>
+          <span>LIMITED TIME OFFER - SHOP NOW</span>
+          <span class="opacity-60">•</span>
+          <span>BECOME A PARTNER TODAY</span>
+        </div>
+
+        <!-- Right links (desktop) -->
+        <div class="hidden md:flex items-center gap-6 text-xs">
+          <div class="flex items-center gap-5">
+            <a href="request-logistics.html" class="hover:opacity-80">Request<br />Logistics</a>
+            <a href="register.html" class="hover:opacity-80">Become<br />a Partner</a>
+          </div>
+
+          <!-- Currency selector -->
+          <div class="flex items-center gap-2">
+            <label for="currency" class="sr-only">Currency</label>
+            <select id="currency" class="rounded-lg bg-white/10 border border-white/20 px-2 py-1 text-white outline-none">
+              <option value="USD" selected>USD ($)</option>
+              <option value="NGN">NGN (₦)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbarMount"></div>
+
+    <main class="min-h-[70vh]">
+      <section class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-12">
+          <i class="fa-solid fa-spinner fa-spin text-3xl text-slate-400"></i>
+          <p class="mt-4 text-slate-600">Loading...</p>
+        </div>
+
+        <!-- Login Required -->
+        <div id="loginRequired" class="text-center hidden">
+          <div class="mx-auto w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-6">
+            <i class="fa-solid fa-user-lock text-3xl text-slate-600"></i>
+          </div>
+          <h1 class="text-2xl font-bold tracking-tight">Login Required</h1>
+          <p class="mt-4 text-slate-600">You need to be logged in to apply for partnership.</p>
+          <div class="mt-8">
+            <a href="login.html" class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-8 py-3 text-sm font-semibold text-white hover:bg-emerald-600">
+              Login to continue
+            </a>
+          </div>
+        </div>
+
+        <!-- Already Partner -->
+        <div id="alreadyPartner" class="text-center hidden">
+          <div class="mx-auto w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mb-6">
+            <i class="fa-solid fa-handshake text-3xl text-emerald-600"></i>
+          </div>
+          <h1 class="text-2xl font-bold tracking-tight text-emerald-700">You're Already a Partner!</h1>
+          <p class="mt-4 text-slate-600">You have full access to partner features.</p>
+          <div class="mt-8">
+            <a href="partner-dashboard.html" class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-8 py-3 text-sm font-semibold text-white hover:bg-emerald-600">
+              Go to Partner Dashboard
+            </a>
+          </div>
+        </div>
+
+        <!-- Pending Application -->
+        <div id="pendingApplication" class="hidden">
+          <div class="text-center mb-8">
+            <div class="mx-auto w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mb-6">
+              <i class="fa-solid fa-clock text-3xl text-amber-600"></i>
+            </div>
+            <h1 class="text-2xl font-bold tracking-tight">Application Pending</h1>
+            <p class="mt-4 text-slate-600">Your partnership application is being reviewed by our team.</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6">
+            <h3 class="font-semibold text-slate-900">Application Details</h3>
+            <div class="mt-4 space-y-3 text-sm">
+              <div class="flex justify-between">
+                <span class="text-slate-600">Name:</span>
+                <span id="appName" class="font-medium text-slate-900"></span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-600">Location:</span>
+                <span id="appLocation" class="font-medium text-slate-900"></span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-600">Status:</span>
+                <span id="appStatus" class="font-medium"></span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-600">Submitted:</span>
+                <span id="appDate" class="font-medium text-slate-900"></span>
+              </div>
+            </div>
+            <div id="reviewNotes" class="mt-4 p-4 bg-white rounded-xl border border-slate-200 hidden">
+              <p class="text-sm font-medium text-slate-700">Admin Notes:</p>
+              <p id="notesText" class="mt-1 text-sm text-slate-600"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Application Form -->
+        <div id="applicationForm" class="hidden">
+          <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold tracking-tight">Become a Partner</h1>
+            <p class="mt-4 text-slate-600 leading-relaxed">
+              Join our exclusive partnership program to access investment opportunities and early product releases.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-emerald-50 rounded-2xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto rounded-full bg-emerald-100 flex items-center justify-center mb-4">
+                <i class="fa-solid fa-chart-line text-emerald-600"></i>
+              </div>
+              <h3 class="font-semibold text-slate-900">Investment Access</h3>
+              <p class="mt-2 text-sm text-slate-600">Exclusive investment opportunities</p>
+            </div>
+            <div class="bg-blue-50 rounded-2xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                <i class="fa-solid fa-clock text-blue-600"></i>
+              </div>
+              <h3 class="font-semibold text-slate-900">Early Access</h3>
+              <p class="mt-2 text-sm text-slate-600">Be first to try new products</p>
+            </div>
+            <div class="bg-purple-50 rounded-2xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto rounded-full bg-purple-100 flex items-center justify-center mb-4">
+                <i class="fa-solid fa-star text-purple-600"></i>
+              </div>
+              <h3 class="font-semibold text-slate-900">Partner Badge</h3>
+              <p class="mt-2 text-sm text-slate-600">Exclusive partner recognition</p>
+            </div>
+          </div>
+
+          <form id="partnerForm" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+            <div class="space-y-4">
+              <div>
+                <label class="text-sm font-medium text-slate-700" for="name">Full Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                  placeholder="Your full name"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-medium text-slate-700" for="location">Location</label>
+                <input
+                  id="location"
+                  name="location"
+                  type="text"
+                  required
+                  class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                  placeholder="City, Country"
+                />
+              </div>
+
+              <p id="formError" class="text-sm text-red-600 hidden"></p>
+
+              <button
+                type="submit"
+                class="w-full inline-flex items-center justify-center rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-600"
+              >
+                Submit Application
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <div id="footerMount"></div>
+
+    <script type="module" src="js/layout.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module">
+      import { api, getToken } from "./js/api.js";
+      import { storage } from "./js/storage.js";
+
+      const loadingState = document.getElementById("loadingState");
+      const loginRequired = document.getElementById("loginRequired");
+      const alreadyPartner = document.getElementById("alreadyPartner");
+      const pendingApplication = document.getElementById("pendingApplication");
+      const applicationForm = document.getElementById("applicationForm");
+      const partnerForm = document.getElementById("partnerForm");
+      const formError = document.getElementById("formError");
+
+      function hideAll() {
+        loadingState.classList.add("hidden");
+        loginRequired.classList.add("hidden");
+        alreadyPartner.classList.add("hidden");
+        pendingApplication.classList.add("hidden");
+        applicationForm.classList.add("hidden");
+      }
+
+      function getStatusBadge(status) {
+        const badges = {
+          PENDING: '<span class="px-2 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-medium">Pending</span>',
+          APPROVED: '<span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-medium">Approved</span>',
+          REJECTED: '<span class="px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-medium">Rejected</span>',
+          NEEDS_INFO: '<span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium">Needs Info</span>',
+        };
+        return badges[status] || status;
+      }
+
+      async function checkStatus() {
+        const token = getToken();
+        const authType = storage.get("authType");
+
+        // Check if logged in as user
+        if (!token || authType !== "user") {
+          hideAll();
+          loginRequired.classList.remove("hidden");
+          return;
+        }
+
+        try {
+          const res = await api("/partnership/status", { auth: "user" });
+
+          hideAll();
+
+          if (res.isPartner) {
+            alreadyPartner.classList.remove("hidden");
+            return;
+          }
+
+          if (res.application) {
+            const app = res.application;
+
+            if (app.status === "APPROVED") {
+              alreadyPartner.classList.remove("hidden");
+              return;
+            }
+
+            // Show pending/needs-info/rejected status
+            document.getElementById("appName").textContent = app.name;
+            document.getElementById("appLocation").textContent = app.location;
+            document.getElementById("appStatus").innerHTML = getStatusBadge(app.status);
+            document.getElementById("appDate").textContent = new Date(app.createdAt).toLocaleDateString();
+
+            if (app.reviewNotes) {
+              document.getElementById("reviewNotes").classList.remove("hidden");
+              document.getElementById("notesText").textContent = app.reviewNotes;
+            }
+
+            // If rejected, show form again
+            if (app.status === "REJECTED") {
+              pendingApplication.classList.remove("hidden");
+              applicationForm.classList.remove("hidden");
+            } else {
+              pendingApplication.classList.remove("hidden");
+            }
+          } else {
+            applicationForm.classList.remove("hidden");
+          }
+        } catch (err) {
+          console.error("Failed to check partnership status:", err);
+          hideAll();
+          applicationForm.classList.remove("hidden");
+        }
+      }
+
+      // Handle form submission
+      if (partnerForm) {
+        partnerForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById("name")?.value?.trim();
+          const location = document.getElementById("location")?.value?.trim();
+
+          if (!name || !location) {
+            formError.textContent = "Please fill in all fields";
+            formError.classList.remove("hidden");
+            return;
+          }
+
+          formError.classList.add("hidden");
+
+          const btn = partnerForm.querySelector('button[type="submit"]');
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+
+          try {
+            await api("/partnership/apply", {
+              method: "POST",
+              body: { name, location },
+              auth: "user",
+            });
+
+            // Reload to show pending status
+            window.location.reload();
+          } catch (err) {
+            formError.textContent = err?.message || "Failed to submit application";
+            formError.classList.remove("hidden");
+            btn.disabled = false;
+            btn.innerHTML = "Submit Application";
+          }
+        });
+      }
+
+      // Check status on load
+      checkStatus();
+    </script>
+
+    <!-- GSAP Animation -->
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <script src="js/animations.js"></script>
+  </body>
+</html>

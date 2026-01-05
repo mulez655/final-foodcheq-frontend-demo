@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | Vendor Barter</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  </head>
+  <body class="bg-slate-50 text-slate-900">
+    <!-- Headline Bar -->
+    <div class="w-full bg-slate-900 text-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
+        <span class="text-xs font-medium tracking-wide">VENDOR PORTAL</span>
+        <div class="flex items-center gap-4 text-xs">
+          <a href="vendor-dashboard.html" class="hover:opacity-80">Products</a>
+          <a href="vendor-orders.html" class="hover:opacity-80">Orders</a>
+          <a href="vendor-barter.html" class="text-emerald-400 font-semibold">Barter</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar Mount -->
+    <div id="navbarMount"></div>
+
+    <main class="min-h-screen">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <div>
+            <h1 class="text-2xl font-bold tracking-tight">Barter Trading</h1>
+            <p class="mt-1 text-slate-600">Exchange products with other vendors</p>
+          </div>
+          <button
+            id="newOfferBtn"
+            class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-600"
+          >
+            <i class="fa-solid fa-plus mr-2"></i> New Offer
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+          <div class="bg-white rounded-xl p-4 border border-slate-200">
+            <p class="text-xs text-slate-500 uppercase tracking-wide">Sent</p>
+            <p id="sentCount" class="text-2xl font-bold text-slate-900 mt-1">0</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-slate-200">
+            <p class="text-xs text-slate-500 uppercase tracking-wide">Received</p>
+            <p id="receivedCount" class="text-2xl font-bold text-slate-900 mt-1">0</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-slate-200">
+            <p class="text-xs text-amber-600 uppercase tracking-wide">Pending</p>
+            <p id="pendingCount" class="text-2xl font-bold text-amber-600 mt-1">0</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-slate-200">
+            <p class="text-xs text-emerald-600 uppercase tracking-wide">Completed</p>
+            <p id="completedCount" class="text-2xl font-bold text-emerald-600 mt-1">0</p>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-6">
+          <button class="tab-btn px-4 py-2 rounded-xl text-sm font-medium bg-slate-900 text-white" data-tab="all">
+            All Offers
+          </button>
+          <button class="tab-btn px-4 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-white" data-tab="sent">
+            Sent
+          </button>
+          <button class="tab-btn px-4 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-white" data-tab="received">
+            Received
+          </button>
+        </div>
+
+        <!-- Offers List -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+          <div id="offersList" class="divide-y divide-slate-100">
+            <!-- Offers will be loaded here -->
+          </div>
+          <div id="noOffers" class="p-12 text-center hidden">
+            <div class="mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-handshake text-2xl text-slate-400"></i>
+            </div>
+            <p class="text-slate-600">No barter offers yet.</p>
+            <p class="text-sm text-slate-500 mt-1">Start by creating a new offer!</p>
+          </div>
+          <div id="loadingOffers" class="p-12 text-center">
+            <i class="fa-solid fa-spinner fa-spin text-2xl text-slate-400"></i>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- New Offer Modal (same structure as vendor-dashboard modal) -->
+    <div id="newOfferModal" class="hidden fixed inset-0 z-[80]">
+      <div class="absolute inset-0 bg-black/40 overflow-y-auto py-8">
+        <div class="relative mx-auto w-[92%] max-w-xl rounded-3xl bg-white shadow-2xl border border-slate-200" style="max-height: calc(100vh - 4rem);">
+          <div class="sticky top-0 z-10 bg-white rounded-t-3xl flex items-center justify-between px-6 py-4 border-b border-slate-200">
+            <h3 id="modalTitle" class="text-base font-bold">Create Barter Offer</h3>
+            <button type="button" id="closeNewOfferModal"
+              class="h-10 w-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-50"
+              aria-label="Close">
+              ✕
+            </button>
+          </div>
+
+          <form id="newOfferForm" class="p-6 space-y-4" style="max-height: calc(100vh - 10rem); overflow-y: auto;">
+            <!-- Select Vendor -->
+            <div>
+              <label class="text-sm font-medium text-slate-700">Trade With</label>
+              <select id="recipientVendor" required class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400">
+                <option value="">Select a vendor...</option>
+              </select>
+            </div>
+
+            <!-- Your Products -->
+            <div>
+              <label class="text-sm font-medium text-slate-700">Products You're Offering</label>
+              <div id="myProductsList" class="mt-1 space-y-2 max-h-40 overflow-y-auto border border-slate-200 rounded-xl p-3">
+                <p class="text-sm text-slate-500">Loading your products...</p>
+              </div>
+            </div>
+
+            <!-- Their Products -->
+            <div>
+              <label class="text-sm font-medium text-slate-700">Products You Want</label>
+              <div id="theirProductsList" class="mt-1 space-y-2 max-h-40 overflow-y-auto border border-slate-200 rounded-xl p-3">
+                <p class="text-sm text-slate-500">Select a vendor first...</p>
+              </div>
+            </div>
+
+            <!-- Value Summary -->
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span class="text-slate-600">Your offer value:</span>
+                <span id="offerValue" class="font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between text-sm mb-2">
+                <span class="text-slate-600">Requested value:</span>
+                <span id="requestValue" class="font-medium">$0.00</span>
+              </div>
+              <hr class="my-2 border-slate-200">
+              <div class="flex justify-between text-sm">
+                <span class="text-slate-600">Difference:</span>
+                <span id="valueDiff" class="font-semibold">$0.00</span>
+              </div>
+            </div>
+
+            <!-- Cash Gap -->
+            <div>
+              <label class="text-sm font-medium text-slate-700">Cash to Balance (optional)</label>
+              <div class="mt-1 flex gap-2">
+                <input
+                  type="number"
+                  id="cashGap"
+                  min="0"
+                  step="0.01"
+                  class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                  placeholder="0.00"
+                />
+                <select id="cashDirection" class="rounded-xl border border-slate-200 px-4 py-3 text-sm">
+                  <option value="INITIATOR_PAYS">I'll pay</option>
+                  <option value="RECIPIENT_PAYS">They'll pay</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Message -->
+            <div>
+              <label class="text-sm font-medium text-slate-700">Message (optional)</label>
+              <textarea
+                id="offerMessage"
+                rows="2"
+                class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="Add a note about this trade..."
+              ></textarea>
+            </div>
+
+            <div class="flex gap-3">
+              <button
+                type="button"
+                id="saveDraftBtn"
+                class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-medium hover:bg-slate-50"
+              >
+                Save as Draft
+              </button>
+              <button
+                type="submit"
+                class="flex-1 rounded-xl bg-emerald-700 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-600"
+              >
+                Send Offer
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offer Detail Modal -->
+    <div id="offerDetailModal" class="hidden fixed inset-0 z-[80]">
+      <div class="absolute inset-0 bg-black/40 overflow-y-auto py-8">
+        <div class="relative mx-auto w-[92%] max-w-xl rounded-3xl bg-white shadow-2xl border border-slate-200" style="max-height: calc(100vh - 4rem);">
+          <div class="sticky top-0 z-10 bg-white rounded-t-3xl flex items-center justify-between px-6 py-4 border-b border-slate-200">
+            <h3 class="text-base font-bold">Offer Details</h3>
+            <button type="button" id="closeDetailModal"
+              class="h-10 w-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-50"
+              aria-label="Close">
+              ✕
+            </button>
+          </div>
+          <div id="offerDetailContent" class="p-6" style="max-height: calc(100vh - 10rem); overflow-y: auto;">
+            <!-- Detail content loaded dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Mount -->
+    <div id="footerMount"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/layout.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module" src="js/vendor-barter.js"></script>
+  </body>
+</html>

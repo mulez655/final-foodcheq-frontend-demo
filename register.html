@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | User Registration</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+
+    <link rel="stylesheet" href="dist/css/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body class="bg-white text-slate-900">
+    <!-- Headline Bar -->
+    <div class="w-full bg-slate-900 text-white js-headline-bar">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <!-- Mobile: Rotating single message -->
+        <div class="md:hidden relative h-5 overflow-hidden text-xs font-medium tracking-wide text-center">
+          <div class="headline-rotator absolute inset-0 flex items-center justify-center">
+            <span class="headline-text">FREE SHIPPING AND RETURNS</span>
+          </div>
+        </div>
+
+        <!-- Desktop: All messages visible -->
+        <div class="hidden md:flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium tracking-wide">
+          <span>FREE SHIPPING AND RETURNS</span>
+          <span class="opacity-60">•</span>
+          <span>LIMITED TIME OFFER - SHOP NOW</span>
+          <span class="opacity-60">•</span>
+          <span>BECOME A PARTNER TODAY</span>
+        </div>
+
+        <!-- Right links (desktop) -->
+        <div class="hidden md:flex items-center gap-6 text-xs">
+          <div class="flex items-center gap-5">
+            <a href="request-logistics.html" class="hover:opacity-80">Request<br />Logistics</a>
+            <a href="register.html" class="hover:opacity-80">Become<br />a Partner</a>
+          </div>
+
+          <!-- Currency selector -->
+          <div class="flex items-center gap-2">
+            <label for="currency" class="sr-only">Currency</label>
+            <select id="currency" class="rounded-lg bg-white/10 border border-white/20 px-2 py-1 text-white outline-none">
+              <option value="USD" selected>USD ($)</option>
+              <option value="NGN">NGN (₦)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbarMount"></div>
+
+    <main class="min-h-[75vh]">
+      <section class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+        <div class="rounded-3xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+          <p class="text-sm font-semibold text-emerald-700">Create account</p>
+          <h1 class="mt-2 text-3xl font-bold tracking-tight">User Registration</h1>
+          <p class="mt-2 text-slate-600">
+            Users can login immediately after registration.
+          </p>
+
+          <form class="mt-8 space-y-4" id="userRegisterForm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm font-medium text-slate-700" for="firstName">First name</label>
+                <input
+                  id="firstName"
+                  name="firstName"
+                  required
+                  class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                  placeholder="Mike"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-medium text-slate-700" for="lastName">Last name</label>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  required
+                  class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                  placeholder="Uduma"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-slate-700" for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="you@email.com"
+              />
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-slate-700" for="phone">Phone</label>
+              <input
+                id="phone"
+                name="phone"
+                required
+                class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="+234..."
+              />
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-slate-700" for="password">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                placeholder="••••••••"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="w-full inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+            >
+              Create User Account
+            </button>
+
+            <p class="text-sm text-slate-600 text-center">
+              Already have an account?
+              <a href="login.html" class="font-semibold text-slate-900 hover:underline">Login</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <div id="footerMount"></div>
+
+    <script type="module" src="js/layout.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module" src="js/register-user.js"></script>
+
+    <!-- GSAP Animation -->
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <script src="js/animations.js"></script>
+  </body>
+</html>

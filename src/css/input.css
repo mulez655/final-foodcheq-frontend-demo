@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* ============ Base tweaks ============ */
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Poppins", Arial, sans-serif; }
+
+/* Optional: tiny helpers you’ll reuse */
+.container-pad { @apply px-4 sm:px-6 lg:px-8; }

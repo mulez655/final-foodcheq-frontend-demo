@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | Partner Dashboard</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  </head>
+  <body class="bg-white text-slate-900">
+    <div class="w-full bg-slate-900 text-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium tracking-wide">
+          <span class="text-emerald-400"><i class="fa-solid fa-handshake mr-1"></i> Partner Portal</span>
+          <span class="opacity-60">•</span>
+          <span>EXCLUSIVE ACCESS</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbarMount"></div>
+
+    <main class="min-h-[70vh]">
+      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-12">
+          <i class="fa-solid fa-spinner fa-spin text-3xl text-slate-400"></i>
+          <p class="mt-4 text-slate-600">Loading partner dashboard...</p>
+        </div>
+
+        <!-- Not Partner -->
+        <div id="notPartner" class="text-center hidden">
+          <div class="mx-auto w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-6">
+            <i class="fa-solid fa-lock text-3xl text-slate-600"></i>
+          </div>
+          <h1 class="text-2xl font-bold tracking-tight">Partner Access Only</h1>
+          <p class="mt-4 text-slate-600">This area is exclusive to FoodCheQ partners.</p>
+          <div class="mt-8">
+            <a href="partner-apply.html" class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-8 py-3 text-sm font-semibold text-white hover:bg-emerald-600">
+              Apply for Partnership
+            </a>
+          </div>
+        </div>
+
+        <!-- Partner Dashboard -->
+        <div id="partnerDashboard" class="hidden">
+          <!-- Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <div>
+              <div class="flex items-center gap-3">
+                <h1 class="text-2xl font-bold tracking-tight">Partner Dashboard</h1>
+                <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">
+                  <i class="fa-solid fa-handshake mr-1"></i> Partner
+                </span>
+              </div>
+              <p class="mt-1 text-slate-600">Welcome back, <span id="partnerName" class="font-medium"></span></p>
+            </div>
+            <button id="refreshBtn" class="text-sm text-slate-600 hover:text-slate-900 border border-slate-200 rounded-xl px-4 py-2">
+              <i class="fa-solid fa-refresh mr-1"></i> Refresh
+            </button>
+          </div>
+
+          <!-- Dashboard Tabs -->
+          <div class="flex border-b border-slate-200 mb-6 overflow-x-auto">
+            <button data-dash-tab="overview" class="dash-tab-btn px-6 py-3 font-semibold text-emerald-700 border-b-2 border-emerald-600 whitespace-nowrap">
+              <i class="fa-solid fa-home mr-2"></i> Overview
+            </button>
+            <button data-dash-tab="announcements" class="dash-tab-btn px-6 py-3 font-semibold text-slate-500 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+              <i class="fa-solid fa-bullhorn mr-2"></i> Announcements
+            </button>
+            <button data-dash-tab="documents" class="dash-tab-btn px-6 py-3 font-semibold text-slate-500 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+              <i class="fa-solid fa-file-alt mr-2"></i> Documents
+            </button>
+            <button data-dash-tab="investments" class="dash-tab-btn px-6 py-3 font-semibold text-slate-500 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+              <i class="fa-solid fa-chart-line mr-2"></i> Investments
+            </button>
+          </div>
+
+          <!-- Overview Tab -->
+          <div id="dash-overview">
+            <!-- Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
+              <div class="bg-emerald-50 rounded-2xl p-6">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm text-emerald-600 font-medium">Announcements</p>
+                    <p id="announcementCount" class="text-2xl font-bold text-emerald-700 mt-1">0</p>
+                  </div>
+                  <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <i class="fa-solid fa-bullhorn text-emerald-600"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-blue-50 rounded-2xl p-6">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm text-blue-600 font-medium">Documents</p>
+                    <p id="documentCount" class="text-2xl font-bold text-blue-700 mt-1">0</p>
+                  </div>
+                  <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                    <i class="fa-solid fa-file-alt text-blue-600"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-amber-50 rounded-2xl p-6">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm text-amber-600 font-medium">Investments</p>
+                    <p id="investmentCount" class="text-2xl font-bold text-amber-700 mt-1">0</p>
+                  </div>
+                  <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                    <i class="fa-solid fa-chart-line text-amber-600"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-purple-50 rounded-2xl p-6">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm text-purple-600 font-medium">Partner Since</p>
+                    <p id="partnerSince" class="text-lg font-bold text-purple-700 mt-1">-</p>
+                  </div>
+                  <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                    <i class="fa-solid fa-calendar text-purple-600"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Announcements Preview -->
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden mb-6">
+              <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h2 class="text-lg font-semibold">Latest Announcements</h2>
+                <button onclick="switchToTab('announcements')" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium">
+                  View All <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+              </div>
+              <div id="recentAnnouncements" class="divide-y divide-slate-100">
+                <!-- Recent announcements preview -->
+              </div>
+              <div id="noRecentAnnouncements" class="p-8 text-center hidden">
+                <p class="text-slate-500">No announcements yet.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Announcements Tab -->
+          <div id="dash-announcements" class="hidden">
+            <div class="space-y-4" id="announcementsFeed">
+              <!-- Announcements will be loaded here -->
+            </div>
+            <div id="noAnnouncements" class="p-12 text-center hidden">
+              <div class="mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+                <i class="fa-solid fa-bullhorn text-2xl text-slate-400"></i>
+              </div>
+              <p class="text-slate-600">No announcements at the moment.</p>
+            </div>
+          </div>
+
+          <!-- Documents Tab -->
+          <div id="dash-documents" class="hidden">
+            <div class="mb-4 flex flex-wrap gap-3">
+              <select id="partnerDocCategoryFilter" class="rounded-xl border border-slate-200 px-4 py-2 text-sm">
+                <option value="">All Categories</option>
+                <option value="GENERAL">General</option>
+                <option value="REPORT">Reports</option>
+                <option value="GUIDE">Guides</option>
+                <option value="CONTRACT">Contracts</option>
+                <option value="FINANCIAL">Financial</option>
+                <option value="POLICY">Policies</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="documentsList">
+              <!-- Documents will be loaded here -->
+            </div>
+            <div id="noDocuments" class="p-12 text-center hidden">
+              <div class="mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+                <i class="fa-solid fa-file-alt text-2xl text-slate-400"></i>
+              </div>
+              <p class="text-slate-600">No documents available.</p>
+            </div>
+          </div>
+
+          <!-- Investments Tab -->
+          <div id="dash-investments" class="hidden">
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+              <div id="opportunitiesList" class="divide-y divide-slate-100">
+                <!-- Opportunities will be loaded here -->
+              </div>
+              <div id="noOpportunities" class="p-12 text-center hidden">
+                <div class="mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+                  <i class="fa-solid fa-chart-line text-2xl text-slate-400"></i>
+                </div>
+                <p class="text-slate-600">No investment opportunities available at the moment.</p>
+                <p class="text-sm text-slate-500 mt-1">Check back later for new opportunities.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="footerMount"></div>
+
+    <script type="module" src="js/layout.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module">
+      import { api, getToken } from "./js/api.js";
+      import { storage } from "./js/storage.js";
+
+      const API_BASE = window.API_BASE || localStorage.getItem("API_BASE") || "http://localhost:4000";
+
+      const loadingState = document.getElementById("loadingState");
+      const notPartner = document.getElementById("notPartner");
+      const partnerDashboard = document.getElementById("partnerDashboard");
+      const opportunitiesList = document.getElementById("opportunitiesList");
+      const noOpportunities = document.getElementById("noOpportunities");
+      const refreshBtn = document.getElementById("refreshBtn");
+
+      let announcementsData = [];
+      let documentsData = [];
+      let investmentsData = [];
+
+      function hideAll() {
+        loadingState.classList.add("hidden");
+        notPartner.classList.add("hidden");
+        partnerDashboard.classList.add("hidden");
+      }
+
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+        return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+      }
+
+      function getDocIcon(mimeType) {
+        if (mimeType?.includes("pdf")) return "fa-file-pdf text-red-500";
+        if (mimeType?.includes("word") || mimeType?.includes("document")) return "fa-file-word text-blue-500";
+        if (mimeType?.includes("excel") || mimeType?.includes("sheet")) return "fa-file-excel text-emerald-500";
+        if (mimeType?.includes("image")) return "fa-file-image text-purple-500";
+        return "fa-file text-slate-500";
+      }
+
+      function renderOpportunity(opp) {
+        return `
+          <div class="p-6 hover:bg-slate-50 transition-colors" data-id="${opp.id}">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div class="flex-1">
+                <h3 class="font-semibold text-slate-900">${escapeHtml(opp.title)}</h3>
+                <p class="mt-2 text-sm text-slate-600 leading-relaxed">${escapeHtml(opp.description)}</p>
+                <p class="mt-2 text-xs text-slate-500">Posted ${new Date(opp.createdAt).toLocaleDateString()}</p>
+              </div>
+              <div class="flex-shrink-0">
+                ${opp.hasExpressedInterest
+                  ? `<button class="withdraw-btn inline-flex items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700">
+                      <i class="fa-solid fa-check mr-2"></i> Interested
+                    </button>`
+                  : `<button class="interest-btn inline-flex items-center justify-center rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600">
+                      Express Interest
+                    </button>`
+                }
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderAnnouncementCard(ann, isPreview = false) {
+        const priorityBadge = ann.priority > 50
+          ? '<span class="ml-2 px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-xs font-semibold">Important</span>'
+          : '';
+
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 ${isPreview ? '' : 'mb-0'}">
+            <div class="flex items-start justify-between">
+              <h3 class="font-semibold text-slate-900">${escapeHtml(ann.title)}${priorityBadge}</h3>
+            </div>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed ${isPreview ? 'line-clamp-2' : ''}">${escapeHtml(ann.content)}</p>
+            <p class="mt-3 text-xs text-slate-400">Posted ${new Date(ann.createdAt).toLocaleDateString()}</p>
+          </div>
+        `;
+      }
+
+      function renderDocumentCard(doc) {
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid ${getDocIcon(doc.mimeType)} text-xl"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-semibold text-slate-900 truncate">${escapeHtml(doc.title)}</h4>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-2">${escapeHtml(doc.description || "")}</p>
+              <div class="mt-2 flex items-center gap-3 text-xs text-slate-400">
+                <span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 font-medium">${doc.category}</span>
+                <span>${formatFileSize(doc.fileSize)}</span>
+              </div>
+            </div>
+            <button onclick="downloadDoc('${doc.id}')" class="px-4 py-2 rounded-xl bg-emerald-700 text-white text-sm font-semibold hover:bg-emerald-600 flex-shrink-0">
+              <i class="fa-solid fa-download"></i>
+            </button>
+          </div>
+        `;
+      }
+
+      // Download document
+      window.downloadDoc = async function(docId) {
+        try {
+          const res = await api(`/partnership/documents/${docId}/download`, { auth: "user" });
+          if (res.downloadUrl) {
+            window.open(`${API_BASE}${res.downloadUrl}`, "_blank");
+          }
+        } catch (err) {
+          alert(err?.message || "Failed to download document");
+        }
+      };
+
+      // Tab switching
+      window.switchToTab = function(tabName) {
+        const tabBtns = document.querySelectorAll(".dash-tab-btn");
+        const tabs = {
+          overview: document.getElementById("dash-overview"),
+          announcements: document.getElementById("dash-announcements"),
+          documents: document.getElementById("dash-documents"),
+          investments: document.getElementById("dash-investments"),
+        };
+
+        // Update button styles
+        tabBtns.forEach(btn => {
+          const isActive = btn.dataset.dashTab === tabName;
+          btn.classList.toggle("text-emerald-700", isActive);
+          btn.classList.toggle("border-emerald-600", isActive);
+          btn.classList.toggle("text-slate-500", !isActive);
+          btn.classList.toggle("border-transparent", !isActive);
+        });
+
+        // Show/hide tabs
+        Object.keys(tabs).forEach(key => {
+          tabs[key].classList.toggle("hidden", key !== tabName);
+        });
+      };
+
+      async function loadAnnouncements() {
+        try {
+          const res = await api("/partnership/announcements", { auth: "user" });
+          announcementsData = res.announcements || [];
+          document.getElementById("announcementCount").textContent = announcementsData.length;
+
+          // Render recent announcements on overview
+          const recentContainer = document.getElementById("recentAnnouncements");
+          const noRecent = document.getElementById("noRecentAnnouncements");
+          const recent = announcementsData.slice(0, 3);
+
+          if (recent.length === 0) {
+            recentContainer.innerHTML = "";
+            noRecent.classList.remove("hidden");
+          } else {
+            noRecent.classList.add("hidden");
+            recentContainer.innerHTML = recent.map(a => `
+              <div class="p-4 hover:bg-slate-50">
+                <div class="flex items-center gap-2">
+                  <h4 class="font-semibold text-slate-900">${escapeHtml(a.title)}</h4>
+                  ${a.priority > 50 ? '<span class="px-2 py-0.5 rounded-full bg-red-100 text-red-600 text-xs font-semibold">Important</span>' : ''}
+                </div>
+                <p class="mt-1 text-sm text-slate-600 line-clamp-1">${escapeHtml(a.content)}</p>
+              </div>
+            `).join("");
+          }
+
+          // Render full announcements feed
+          const feedContainer = document.getElementById("announcementsFeed");
+          const noAnn = document.getElementById("noAnnouncements");
+
+          if (announcementsData.length === 0) {
+            feedContainer.innerHTML = "";
+            noAnn.classList.remove("hidden");
+          } else {
+            noAnn.classList.add("hidden");
+            feedContainer.innerHTML = announcementsData.map(a => renderAnnouncementCard(a)).join("");
+          }
+        } catch (err) {
+          console.error("Failed to load announcements:", err);
+        }
+      }
+
+      async function loadDocuments() {
+        try {
+          const category = document.getElementById("partnerDocCategoryFilter")?.value || "";
+          let url = "/partnership/documents";
+          if (category) url += `?category=${category}`;
+
+          const res = await api(url, { auth: "user" });
+          documentsData = res.documents || [];
+          document.getElementById("documentCount").textContent = documentsData.length;
+
+          const container = document.getElementById("documentsList");
+          const noDocs = document.getElementById("noDocuments");
+
+          if (documentsData.length === 0) {
+            container.innerHTML = "";
+            noDocs.classList.remove("hidden");
+          } else {
+            noDocs.classList.add("hidden");
+            container.innerHTML = documentsData.map(d => renderDocumentCard(d)).join("");
+          }
+        } catch (err) {
+          console.error("Failed to load documents:", err);
+        }
+      }
+
+      async function loadInvestments() {
+        try {
+          const res = await api("/partnership/investments", { auth: "user" });
+          investmentsData = res.opportunities || [];
+          document.getElementById("investmentCount").textContent = investmentsData.length;
+
+          if (investmentsData.length === 0) {
+            opportunitiesList.innerHTML = "";
+            noOpportunities.classList.remove("hidden");
+          } else {
+            noOpportunities.classList.add("hidden");
+            opportunitiesList.innerHTML = investmentsData.map(renderOpportunity).join("");
+          }
+        } catch (err) {
+          console.error("Failed to load investments:", err);
+        }
+      }
+
+      async function loadDashboard() {
+        const token = getToken();
+        const authType = storage.get("authType");
+
+        if (!token || authType !== "user") {
+          hideAll();
+          notPartner.classList.remove("hidden");
+          return;
+        }
+
+        try {
+          // Check partnership status
+          const statusRes = await api("/partnership/status", { auth: "user" });
+
+          if (!statusRes.isPartner) {
+            hideAll();
+            notPartner.classList.remove("hidden");
+            return;
+          }
+
+          hideAll();
+          partnerDashboard.classList.remove("hidden");
+
+          // Set partner info
+          const user = storage.get("user");
+          document.getElementById("partnerName").textContent = user?.name || user?.email || "Partner";
+
+          if (statusRes.application) {
+            document.getElementById("partnerSince").textContent = new Date(statusRes.application.reviewedAt || statusRes.application.createdAt).toLocaleDateString();
+          }
+
+          // Load all content
+          await Promise.all([
+            loadAnnouncements(),
+            loadDocuments(),
+            loadInvestments()
+          ]);
+        } catch (err) {
+          console.error("Failed to load dashboard:", err);
+          hideAll();
+          notPartner.classList.remove("hidden");
+        }
+      }
+
+      // Handle interest buttons
+      opportunitiesList.addEventListener("click", async (e) => {
+        const interestBtn = e.target.closest(".interest-btn");
+        const withdrawBtn = e.target.closest(".withdraw-btn");
+        const oppDiv = e.target.closest("[data-id]");
+
+        if (!oppDiv) return;
+        const oppId = oppDiv.dataset.id;
+
+        if (interestBtn) {
+          interestBtn.disabled = true;
+          interestBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+          try {
+            await api(`/partnership/investments/${oppId}/interest`, {
+              method: "POST",
+              auth: "user",
+            });
+            loadInvestments();
+          } catch (err) {
+            alert(err?.message || "Failed to express interest");
+            interestBtn.disabled = false;
+            interestBtn.innerHTML = "Express Interest";
+          }
+        }
+
+        if (withdrawBtn) {
+          withdrawBtn.disabled = true;
+          withdrawBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+          try {
+            await api(`/partnership/investments/${oppId}/interest`, {
+              method: "DELETE",
+              auth: "user",
+            });
+            loadInvestments();
+          } catch (err) {
+            alert(err?.message || "Failed to withdraw interest");
+            withdrawBtn.disabled = false;
+            withdrawBtn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Interested';
+          }
+        }
+      });
+
+      // Tab button clicks
+      document.querySelectorAll(".dash-tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          switchToTab(btn.dataset.dashTab);
+        });
+      });
+
+      // Document category filter
+      document.getElementById("partnerDocCategoryFilter")?.addEventListener("change", loadDocuments);
+
+      // Refresh button
+      if (refreshBtn) {
+        refreshBtn.addEventListener("click", () => {
+          refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Refreshing...';
+          loadDashboard().then(() => {
+            refreshBtn.innerHTML = '<i class="fa-solid fa-refresh mr-1"></i> Refresh';
+          });
+        });
+      }
+
+      // Load on page load
+      loadDashboard();
+    </script>
+  </body>
+</html>

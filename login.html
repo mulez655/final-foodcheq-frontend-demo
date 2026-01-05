@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | Login</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+
+    <link rel="stylesheet" href="dist/css/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body class="bg-white text-slate-900">
+    <!-- Headline Bar -->
+    <div class="w-full bg-slate-900 text-white js-headline-bar">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <!-- Mobile: Rotating single message -->
+        <div class="md:hidden relative h-5 overflow-hidden text-xs font-medium tracking-wide text-center">
+          <div class="headline-rotator absolute inset-0 flex items-center justify-center">
+            <span class="headline-text">FREE SHIPPING AND RETURNS</span>
+          </div>
+        </div>
+
+        <!-- Desktop: All messages visible -->
+        <div class="hidden md:flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium tracking-wide">
+          <span>FREE SHIPPING AND RETURNS</span>
+          <span class="opacity-60">•</span>
+          <span>LIMITED TIME OFFER - SHOP NOW</span>
+          <span class="opacity-60">•</span>
+          <span>BECOME A PARTNER TODAY</span>
+        </div>
+
+        <!-- Right links (desktop) -->
+        <div class="hidden md:flex items-center gap-6 text-xs">
+          <div class="flex items-center gap-5">
+            <a href="request-logistics.html" class="hover:opacity-80">Request<br />Logistics</a>
+            <a href="register.html" class="hover:opacity-80">Become<br />a Partner</a>
+          </div>
+
+          <!-- Currency selector -->
+          <div class="flex items-center gap-2">
+            <label for="currency" class="sr-only">Currency</label>
+            <select id="currency" class="rounded-lg bg-white/10 border border-white/20 px-2 py-1 text-white outline-none">
+              <option value="USD" selected>USD ($)</option>
+              <option value="NGN">NGN (₦)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbarMount"></div>
+
+    <main class="min-h-[70vh]">
+      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <!-- Left: Copy -->
+          <div class="rounded-3xl border border-slate-200 bg-slate-50 p-8">
+            <p class="text-sm font-semibold text-emerald-700">Welcome back</p>
+            <h1 class="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">
+              Login to continue
+            </h1>
+            <p class="mt-3 text-slate-600 leading-relaxed">
+              Users can login immediately after registration.
+              Vendors can login only after approval.
+            </p>
+
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a
+                href="register.html"
+                class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+              >
+                Register as User
+              </a>
+
+              <a
+                href="vendor-register.html"
+                class="inline-flex items-center justify-center rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-white"
+              >
+                Register as Vendor
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Login Card -->
+          <div class="rounded-3xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+            <!-- Role Tabs -->
+            <div class="flex gap-2 rounded-2xl bg-slate-100 p-1" data-role-tabs>
+              <button
+                type="button"
+                class="flex-1 rounded-xl px-4 py-2 text-sm font-semibold bg-white shadow-sm"
+                data-role="user"
+              >
+                User Login
+              </button>
+              <button
+                type="button"
+                class="flex-1 rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 hover:text-slate-900"
+                data-role="vendor"
+              >
+                Vendor Login
+              </button>
+            </div>
+
+            <form class="mt-6 space-y-4" id="loginForm">
+              <input type="hidden" id="loginRole" value="user" />
+
+              <div>
+                <label class="text-sm font-medium text-slate-700" for="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                  placeholder="you@email.com"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-medium text-slate-700" for="password">Password</label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  class="mt-1 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <button
+                type="submit"
+                class="w-full inline-flex items-center justify-center rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-600"
+              >
+                Login
+              </button>
+
+              <!-- Unverified user banner (hidden by default) -->
+              <div id="unverifiedBanner" class="hidden rounded-xl bg-amber-50 border border-amber-200 p-4">
+                <p class="text-sm text-amber-800">
+                  <i class="fa-solid fa-exclamation-triangle mr-2"></i>
+                  Your email is not verified. Please check your inbox.
+                </p>
+                <button type="button" id="resendVerification" class="mt-2 text-sm font-semibold text-amber-700 hover:underline">
+                  Resend verification email
+                </button>
+              </div>
+
+              <p class="text-xs text-slate-500 leading-relaxed">
+                Vendor login requires approval. If your vendor account isn't approved yet,
+                you'll be blocked until admin approves you (dashboard later).
+              </p>
+            </form>
+
+            <div class="mt-4 text-center">
+              <a href="forgot-password.html" class="text-sm font-medium text-emerald-700 hover:underline">
+                Forgot your password?
+              </a>
+            </div>
+
+            <div class="mt-6 flex items-center justify-between text-sm">
+              <a href="register.html" class="font-semibold text-slate-900 hover:underline">
+                Create user account
+              </a>
+              <a href="vendor-register.html" class="font-semibold text-slate-900 hover:underline">
+                Create vendor account
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="footerMount"></div>
+
+    <script type="module" src="js/layout.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module" src="js/login-page.js"></script>
+
+    <!-- Fallback login handler in case module fails -->
+    <script>
+      (function() {
+        // Wait for DOM
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initFallback);
+        } else {
+          initFallback();
+        }
+
+        function initFallback() {
+          console.log("Fallback login handler checking...");
+
+          // Give module 2 seconds to load, then check if form has handler
+          setTimeout(function() {
+            var form = document.getElementById('loginForm');
+            if (!form) return;
+
+            // Check if module loaded by looking for our marker
+            if (window.__loginModuleLoaded) {
+              console.log("Module loaded successfully, fallback not needed");
+              return;
+            }
+
+            console.warn("Module may have failed, attaching fallback handler");
+
+            form.addEventListener('submit', async function(e) {
+              e.preventDefault();
+              console.log("FALLBACK: Form submitted");
+
+              var roleInput = document.getElementById('loginRole');
+              var role = (roleInput?.value || 'user').toLowerCase();
+              var email = document.getElementById('email')?.value?.trim();
+              var password = document.getElementById('password')?.value;
+              var btn = form.querySelector('button[type="submit"]');
+
+              if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Logging in...';
+              }
+
+              try {
+                var endpoint = role === 'vendor' ? '/vendor/auth/login' : '/auth/login';
+                var response = await fetch('http://localhost:4000/api' + endpoint, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ email: email, password: password })
+                });
+
+                var data = await response.json();
+                console.log("FALLBACK: Response:", data);
+
+                if (!response.ok) {
+                  throw new Error(data.message || 'Login failed');
+                }
+
+                if (!data.accessToken) {
+                  throw new Error('No access token in response');
+                }
+
+                // Store directly in localStorage
+                localStorage.setItem('token', JSON.stringify(data.accessToken));
+                localStorage.setItem('authType', JSON.stringify(role));
+                localStorage.setItem('user', JSON.stringify(data.user || data.vendor || {}));
+
+                if (role === 'vendor' && data.accessToken) {
+                  localStorage.setItem('vendor_token', JSON.stringify(data.accessToken));
+                }
+
+                console.log("FALLBACK: Token stored:", !!localStorage.getItem('token'));
+
+                // Redirect
+                window.location.href = role === 'vendor' ? 'vendor-dashboard.html' : 'index.html';
+
+              } catch (err) {
+                console.error("FALLBACK: Error:", err);
+                alert(err.message || 'Login failed');
+                if (btn) {
+                  btn.disabled = false;
+                  btn.textContent = 'Login';
+                }
+              }
+            });
+          }, 2000);
+        }
+      })();
+    </script>
+
+    <!-- GSAP Animation -->
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <script src="js/animations.js"></script>
+  </body>
+</html>

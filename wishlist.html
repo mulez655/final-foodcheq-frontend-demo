@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | Wishlist</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body class="bg-white text-slate-900">
+    <!-- Headline Bar -->
+    <div class="w-full bg-slate-900 text-white js-headline-bar">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <!-- Mobile: Rotating single message -->
+        <div class="md:hidden relative h-5 overflow-hidden text-xs font-medium tracking-wide text-center">
+          <div class="headline-rotator absolute inset-0 flex items-center justify-center">
+            <span class="headline-text">FREE SHIPPING AND RETURNS</span>
+          </div>
+        </div>
+
+        <!-- Desktop: All messages visible -->
+        <div class="hidden md:flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium tracking-wide">
+          <span>FREE SHIPPING AND RETURNS</span>
+          <span class="opacity-60">•</span>
+          <span>LIMITED TIME OFFER - SHOP NOW</span>
+          <span class="opacity-60">•</span>
+          <span>BECOME A PARTNER TODAY</span>
+        </div>
+
+        <!-- Right links (desktop) -->
+        <div class="hidden md:flex items-center gap-6 text-xs">
+          <div class="flex items-center gap-5">
+            <a href="request-logistics.html" class="hover:opacity-80">Request<br />Logistics</a>
+            <a href="register.html" class="hover:opacity-80">Become<br />a Partner</a>
+          </div>
+
+          <!-- Currency selector -->
+          <div class="flex items-center gap-2">
+            <label for="currency" class="sr-only">Currency</label>
+            <select id="currency" class="rounded-lg bg-white/10 border border-white/20 px-2 py-1 text-white outline-none">
+              <option value="USD" selected>USD ($)</option>
+              <option value="NGN">NGN (₦)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbarMount"></div>
+
+    <main class="min-h-[75vh]">
+      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <p class="text-sm font-semibold text-emerald-700">Saved items</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight">Your Wishlist</h1>
+        <p class="mt-2 text-slate-600">
+          Products you’ve saved for later.
+        </p>
+
+        <!-- Empty -->
+        <div id="wishlistEmpty" class="hidden mt-10">
+          <div class="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center">
+            <p class="text-lg font-bold">Your wishlist is empty</p>
+            <p class="mt-2 text-sm text-slate-600">
+              Browse products and tap the ❤️ icon to save items.
+            </p>
+            <a
+              href="shop.html"
+              class="mt-5 inline-flex items-center justify-center rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-600"
+            >
+              Go to Shop
+            </a>
+          </div>
+        </div>
+
+        <!-- Grid -->
+        <div
+          id="wishlistGrid"
+          class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        ></div>
+      </section>
+    </main>
+
+    <div id="footerMount"></div>
+
+    <script type="module" src="js/layout.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module" src="js/currency.js"></script>
+    <script type="module" src="js/wishlist-page.js"></script>
+
+    <!-- GSAP Animation -->
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <script src="js/animations.js"></script>
+  </body>
+</html>

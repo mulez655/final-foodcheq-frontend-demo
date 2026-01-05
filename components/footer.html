@@ -1,0 +1,100 @@
+<footer class="bg-slate-950 text-slate-200 border-t border-white/10">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- About -->
+      <div>
+        <h6 class="text-sm font-semibold tracking-widest text-white">ABOUT US</h6>
+
+        <a href="index.html" class="inline-flex items-center mt-4">
+          <img
+            src="logo/foodcheq-logo.png"
+            alt="FoodCheQ logo"
+            class="h-10 w-auto"
+            loading="lazy"
+          />
+        </a>
+
+        <p class="mt-4 text-sm leading-6 text-slate-300">
+          FoodCheQ is a technology driven herbal agro-processing company that transforms
+          traditional medicinal crops into standardized, export-ready foods and extracts
+          while empowering smallholder farmers through a cooperative and traceable supply chain.
+        </p>
+
+        <a
+          href="about.html"
+          class="mt-4 inline-flex items-center rounded-lg border border-emerald-500/40 px-3 py-2 text-sm font-medium text-emerald-200 hover:border-emerald-400/70 hover:text-emerald-100 transition"
+        >
+          See More
+        </a>
+      </div>
+
+      <!-- Help -->
+      <div>
+        <h6 class="text-sm font-semibold tracking-widest text-white">HELP</h6>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a class="text-slate-300 hover:text-white transition" href="https://foodcheq.coop/privacy">Privacy Policy</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="https://foodcheq.coop/returns">Returns + Exchanges</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="https://foodcheq.coop/shipping_delivery">Shipping + Delivery</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="https://foodcheq.coop/terms">Terms &amp; Conditions</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="https://foodcheq.coop/faq">FAQ's</a></li>
+        </ul>
+      </div>
+
+      <!-- Quick Navigation -->
+      <div>
+        <h6 class="text-sm font-semibold tracking-widest text-white">QUICK NAVIGATION</h6>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a class="text-slate-300 hover:text-white transition" href="about.html">Our Story</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="product-category.html">Visit Our Store</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="https://foodcheq.coop/vendors">Our Partners</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="https://foodcheq.coop/blog">Blog</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="track-shipment.html">Track Shipment</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="https://foodcheq.coop/contact">Contact Us</a></li>
+          <li><a class="text-slate-300 hover:text-white transition" href="login.html">Account</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h6 class="text-sm font-semibold tracking-widest text-white">CONTACT US</h6>
+
+        <ul class="mt-4 space-y-3 text-sm text-slate-300">
+          <li>
+            <span class="text-white/80 font-medium">Address:</span>
+            Plot A, Central Orchard Section, Okiloki Farm Settlement, Abbi NWLGA, Delta State
+          </li>
+          <li>
+            <span class="text-white/80 font-medium">Email:</span>
+            <a class="hover:text-white transition" href="mailto:team@foodcheq.coop">team@foodcheq.coop</a>
+          </li>
+          <li>
+            <span class="text-white/80 font-medium">Phone:</span>
+            <a class="hover:text-white transition" href="tel:+2349027921510">+2349027921510</a>
+          </li>
+        </ul>
+
+        <a
+          href="https://foodcheq.coop/contact"
+          class="mt-4 inline-flex items-center rounded-lg border border-emerald-500/40 px-3 py-2 text-sm font-medium text-emerald-200 hover:border-emerald-400/70 hover:text-emerald-100 transition"
+        >
+          Get Directions
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-slate-400">
+        © <span id="year"></span> FoodCheQ. All Rights Reserved.
+      </p>
+
+      <p class="text-xs text-slate-500">
+        Built with care • Secure checkout • Traceable supply chain
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const y = document.getElementById("year");
+    if (y) y.textContent = new Date().getFullYear();
+  </script>
+</footer>

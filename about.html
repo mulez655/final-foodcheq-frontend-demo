@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodCheQ | about</title>
+    <link rel="icon" type="image/png" href="logo/foodcheq-logo.png">
+
+    <!-- Fonts + Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Tailwind build output -->
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <style>
+      body {
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <!-- Headline Bar -->
+    <div class="w-full bg-slate-900 text-white js-headline-bar">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <!-- Mobile: Rotating single message -->
+        <div class="md:hidden relative h-5 overflow-hidden text-xs font-medium tracking-wide text-center">
+          <div class="headline-rotator absolute inset-0 flex items-center justify-center">
+            <span class="headline-text">FREE SHIPPING AND RETURNS</span>
+          </div>
+        </div>
+
+        <!-- Desktop: All messages visible -->
+        <div class="hidden md:flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium tracking-wide">
+          <span>FREE SHIPPING AND RETURNS</span>
+          <span class="opacity-60">•</span>
+          <span>LIMITED TIME OFFER - SHOP NOW</span>
+          <span class="opacity-60">•</span>
+          <span>BECOME A PARTNER TODAY</span>
+        </div>
+
+        <!-- Right links (desktop) -->
+        <div class="hidden md:flex items-center gap-6 text-xs">
+          <div class="flex items-center gap-5">
+            <a href="request-logistics.html" class="hover:opacity-80">Request<br />Logistics</a>
+            <a href="register.html" class="hover:opacity-80">Become<br />a Partner</a>
+          </div>
+
+          <!-- Currency selector -->
+          <div class="flex items-center gap-2">
+            <label for="currency" class="sr-only">Currency</label>
+            <select id="currency" class="rounded-lg bg-white/10 border border-white/20 px-2 py-1 text-white outline-none">
+              <option value="USD" selected>USD ($)</option>
+              <option value="NGN">NGN (₦)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar mount -->
+    <div id="navbarMount"></div>
+
+    <!-- Search modal -->
+    <div data-search-modal class="hidden fixed inset-0 z-[60]">
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="relative mx-auto mt-20 w-[92%] max-w-3xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+        <div class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+          <h3 class="text-base font-bold">Search Products</h3>
+          <button
+            type="button"
+            data-close-search
+            class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 hover:bg-slate-50"
+            aria-label="Close"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="p-5">
+          <input
+            id="searchInput"
+            type="text"
+            class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-slate-300"
+            placeholder="Search..."
+          />
+          <div id="searchResults" class="mt-4 grid gap-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page -->
+    <main class="mx-auto max-w-7xl px-4 py-10">
+      <section class="grid gap-8 lg:grid-cols-2 lg:items-center">
+        <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+          <img
+            src="https://i.pinimg.com/736x/83/0e/4e/830e4ee03fe26f537eabaffa4343efed.jpg"
+            alt="herbal"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl">WHO WE ARE</h1>
+
+          <p class="mt-4 text-sm leading-7 text-slate-700">
+            🌿 Affordable Healing in Every Teacup<br />
+            <strong>FoodCheQ Herbals</strong> is a subscription-based herbal food and wellness store rooted
+            in the belief that food is medicine. In a world where healthcare is expensive and often reactive,
+            we offer a natural, affordable alternative that empowers people to take charge of their health.
+          </p>
+
+          <ul class="mt-4 grid gap-2 text-sm text-slate-800">
+            <li class="flex items-start gap-2"><span>🌿</span><span>100% natural and organic products</span></li>
+            <li class="flex items-start gap-2"><span>🤝</span><span>Community-powered cooperative</span></li>
+            <li class="flex items-start gap-2"><span>🌍</span><span>Sustainable and ethical sourcing</span></li>
+            <li class="flex items-start gap-2"><span>💚</span><span>Focused on wellness, not just profit</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-center text-2xl font-extrabold tracking-tight">Why Choose Us</h2>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="text-2xl">🌿</div>
+            <div class="mt-2 font-bold">Natural</div>
+            <div class="mt-1 text-sm text-slate-600">Organic, plant-based remedies</div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="text-2xl">🤝</div>
+            <div class="mt-2 font-bold">Cooperative</div>
+            <div class="mt-1 text-sm text-slate-600">Community-driven model</div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="text-2xl">🌍</div>
+            <div class="mt-2 font-bold">Sustainable</div>
+            <div class="mt-1 text-sm text-slate-600">Ethical sourcing practices</div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="text-2xl">💚</div>
+            <div class="mt-2 font-bold">Wellness First</div>
+            <div class="mt-1 text-sm text-slate-600">Health over profit</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-center text-2xl font-extrabold tracking-tight">What You Can Expect</h2>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">🚚 Fast Shipping</div>
+          <div class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">💳 Flexible Payment</div>
+          <div class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">🔄 Easy Returns</div>
+          <div class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">📞 Premium Support</div>
+        </div>
+      </section>
+
+      <section class="mt-12 overflow-hidden rounded-3xl bg-emerald-600 text-white shadow-sm">
+        <div class="px-6 py-10 text-center">
+          <h2 class="text-2xl font-extrabold">Your Journey Starts Here</h2>
+          <p class="mt-2 text-sm text-white/90">Subscribe, become a member, or explore our store today.</p>
+
+          <a
+            href="product-category.html"
+            class="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-bold text-emerald-700 hover:bg-white/90"
+          >
+            Shop Now
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Mount -->
+    <div  id="footerMount"></div>
+    
+    <!-- Scripts -->
+    <script type="module" src="js/layout.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module" src="js/currency.js"></script>
+
+    <!-- GSAP Animation -->
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <script src="js/animations.js"></script>
+  </body>
+</html>
