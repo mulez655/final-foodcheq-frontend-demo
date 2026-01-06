@@ -6,7 +6,7 @@ import { storage } from "./storage.js";
 // ============================================
 // For local development: "http://localhost:4000"
 // For production: "https://your-app-name.onrender.com"
-const BACKEND_URL = "http://localhost:4000";
+const BACKEND_URL = "https://final-foodcheq-backend-demo.onrender.com";
 // ============================================
 
 export const API_BASE = `${BACKEND_URL}/api`;
